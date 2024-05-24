@@ -30,6 +30,22 @@
         <li>
           <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Membership') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Membership</a>
         </li>
+        <li>
+          <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Set Class') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text
+          -white' }}">Set Class</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Member') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Member</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Gym Income') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Gym Income</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Trainer Registrant') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Trainer Registrant</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Gym Inventory') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Gym Inventory</a>
+        </li>
       </ul>
     </div>
     </div>
