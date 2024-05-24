@@ -16,21 +16,9 @@ class Controller extends BaseController
         ]);
     }
 
-    public function loginUser() {
-        return view("login.loginUser", [
-            "title" => "Login"
-        ]);
-    }
-
     public function loginAdmin() {
         return view("login.loginAdmin", [
             "title" => "Login Admin"
-        ]);
-    }
-
-    public function register() {
-        return view("register.register", [
-            "title" => "Register"
         ]);
     }
 }
