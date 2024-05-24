@@ -7,9 +7,9 @@
     <title>Document</title>
     @vite('resources/css/app.css')
 </head>
-<body>
-    <h1 class="text-3xl font-bold underline">
-        Hello world!
-    </h1>
+<body class="bg-gray-900">
+    @include("partial.navbar")
+
+    @yield('main-body')
 </body>
 </html>
