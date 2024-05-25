@@ -74,7 +74,7 @@
             </div>
         </form>
 
-        <form class="hidden max-w-sm mx-auto p-4 rounded-lg shadow sm:p-6 md:p-8" href="/register" method="POST" id="loginTrainer" role="tabpanel" aria-labelledby="trainer-tab">
+        <form class="hidden max-w-sm mx-auto p-4 rounded-lg shadow sm:p-6 md:p-8" href="/register" enctype="multipart/form-data" method="POST" id="loginTrainer" role="tabpanel" aria-labelledby="trainer-tab">
             @csrf
             <div class="relative z-0 w-full mb-5 group">
                 <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('email') is-invalid @enderror" placeholder=" " required value="yudhacahyawijaya@gmail.com"/>
@@ -125,7 +125,7 @@
             </div>
             <div class="relative z-0 w-full mb-5 group">
                 <label class="block mb-3 text-xs font-medium text-gray-300" for="apply_letter">Application Letter</label>
-                <input class="block w-full text-xs border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400 @error('apply_letter') is-invalid @enderror" aria-describedby="apply_letter_help" id="apply_letter" type="file" required>
+                <input class="block w-full text-xs border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400 @error('apply_letter') is-invalid @enderror" aria-describedby="apply_letter_help" id="apply_letter" name="apply_letter" type="file" required>
                 <p class="mt-1 text-xs text-gray-300" id="apply_letter_help">Format file: .pdf</p>
             </div>
             @error('apply_letter')
@@ -135,7 +135,7 @@
             @enderror
             <div class="relative z-0 w-full mb-5 group">
                 <label class="block mb-3 text-xs font-medium text-gray-300" for="cv">Curriculum Vitae</label>
-                <input class="block w-full text-xs border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400 @error('cv') is-invalid @enderror" aria-describedby="cv_help" id="cv" type="file" required>
+                <input class="block w-full text-xs border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400 @error('cv') is-invalid @enderror" aria-describedby="cv_help" id="cv" name="cv" type="file" required>
                 <p class="mt-1 text-xs text-gray-300" id="cv_help">Format file: .pdf</p>
             </div>
             @error('cv')
@@ -145,7 +145,7 @@
             @enderror
             <div class="relative z-0 w-full mb-5 group">
                 <label class="block mb-3 text-xs font-medium text-gray-300" for="certificates">Certificates</label>
-                <input class="block w-full text-xs border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400 @error('certificates') is-invalid @enderror" aria-describedby="certificates_help" id="certificates" type="file" multiple>
+                <input class="block w-full text-xs border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400 @error('certificates') is-invalid @enderror" aria-describedby="certificates_help" id="certificates" name="certificates[]" type="file" multiple>
                 <p class="mt-1 text-xs text-gray-300" id="certificates_help">Format file: .pdf</p>
             </div>
             <div class="flex items-start mb-5">

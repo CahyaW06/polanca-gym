@@ -14,7 +14,9 @@ class Trainer extends Model
         "id"
     ];
 
-    public function user() : HasOne {
-        return $this->hasOne(User::class);
+    protected $primaryKey = 'id';
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }
