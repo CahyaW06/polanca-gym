@@ -19,7 +19,6 @@ class LoginUserController extends Controller
     }
 
     public function autentificate(Request $request) {
-        // dd($request);
         if ($request->trainerValidation) {
             $credentials = $request->validate([
                 'email' => 'required|email:dns',
@@ -33,7 +32,7 @@ class LoginUserController extends Controller
                 }
             }
             else {
-                return back()->with('loginError', 'Login failed!!!');
+                return back()->with('login_error', 'Login failed!');
             }
         }
         else {
@@ -49,11 +48,11 @@ class LoginUserController extends Controller
                 }
             }
             else {
-                return back()->with('loginError', 'Login failed!!!');
+                return back()->with('login_error', 'Login failed!');
             }
         }
 
-        return back()->with('loginError', 'Login failed!!!');
+        return back()->with('login_error', 'Login failed!');
     }
 
     public function logout(Request $request) {

@@ -25,10 +25,19 @@
     </div>
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        @guest
         <li>
           <a href="/" class="block py-2 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Home') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}" aria-current="page">Home</a>
         </li>
-        @auth
+        <li>
+          <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Training Class') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Training Class</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Training Class') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">About Us</a>
+        </li>
+        @endguest
+
+        @if(Auth::user() && Auth::user()->type == "member")
         <li>
           <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Join Class') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Join Class</a>
         </li>
@@ -38,10 +47,15 @@
         <li>
           <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Membership') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Membership</a>
         </li>
-        @endauth
+        @endif
+
+        @if(Auth::user() && Auth::user()->type == "trainer")
         <li>
-          <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Training Class') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Training Class</a>
+          <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Training Class') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">My Class</a>
         </li>
+        @endif
+
+        @if(Auth::user() && Auth::user()->type == "admin")
         <li>
           <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Set Class') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text
           -white' }}">Set Class</a>
@@ -58,6 +72,7 @@
         <li>
           <a href="#" class="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ ($title == 'Gym Inventory') ? 'text-blue-700 dark:text-blue-700' : 'text-gray-900 dark:text-white' }}">Gym Inventory</a>
         </li>
+        @endif
       </ul>
     </div>
     </div>

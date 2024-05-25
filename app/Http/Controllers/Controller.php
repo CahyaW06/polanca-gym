@@ -15,10 +15,4 @@ class Controller extends BaseController
             "title" => "Home",
         ]);
     }
-
-    public function loginAdmin() {
-        return view("login.loginAdmin", [
-            "title" => "Login Admin"
-        ]);
-    }
 }
