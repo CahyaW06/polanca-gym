@@ -16,7 +16,6 @@ class AdminController extends Controller
     }
 
     public function updateMember(Request $request) {
-        // dd($request->new_duration);
         $targetUser = User::where("id", $request->user_id)->get()->first();
 
         if ($targetUser->type == "member") {

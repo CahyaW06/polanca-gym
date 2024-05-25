@@ -33,9 +33,11 @@ class DatabaseSeeder extends Seeder
             'type' => 'member',
             'password' => Hash::make('yudha123'),
             'activated' => 1,
-            'membership_duration' => 3,
-            'update_membership_at' => Carbon::now()->toDate(),
-            'membership_end_at' => Carbon::now()->addMonth(3)
+            'membership_duration' => 4,
+            // 'update_membership_at' => Carbon::now()->toDate(),
+            'update_membership_at' => Carbon::parse('2024-03-26'),
+            'membership_end_at' => Carbon::parse('2024-03-26')->addMonth(4)
+            // 'membership_end_at' => Carbon::now()->addMonth(3)
         ]);
 
         Trainer::create([
