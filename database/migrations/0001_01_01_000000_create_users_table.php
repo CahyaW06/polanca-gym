@@ -19,6 +19,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('type');
             $table->boolean('activated')->default(0);
+            $table->integer('membership_duration')->default(0);
+            $table->date('update_membership_at')->nullable();
+            $table->date('membership_end_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

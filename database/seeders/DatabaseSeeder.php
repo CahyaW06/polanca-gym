@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Trainer;
 use App\Models\User;
+use Carbon\Carbon;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -24,12 +25,17 @@ class DatabaseSeeder extends Seeder
             'type' => 'trainer',
             'password' => Hash::make('yudha123'),
         ]);
+
         User::create([
             'first_name' => 'Ahmad',
             'last_name' => 'Wijaya',
             'email' => 'yudhacahya@gmail.com',
             'type' => 'member',
             'password' => Hash::make('yudha123'),
+            'activated' => 1,
+            'membership_duration' => 3,
+            'update_membership_at' => Carbon::now()->toDate(),
+            'membership_end_at' => Carbon::now()->addMonth(3)
         ]);
 
         Trainer::create([
