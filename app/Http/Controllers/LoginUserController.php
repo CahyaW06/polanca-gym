@@ -19,15 +19,38 @@ class LoginUserController extends Controller
     }
 
     public function autentificate(Request $request) {
-        dd($request);
-        $credentials = $request->validate([
-            'email' => 'required|email:dns',
-            'password' => 'required'
-        ]);
+        // dd($request);
+        if ($request->trainerValidation) {
+            $credentials = $request->validate([
+                'email' => 'required|email:dns',
+                'password' => 'required'
+            ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/');
+            if (User::where('email', $request->email)->get()->first()->type == "trainer") {
+                if (Auth::attempt($credentials)) {
+                    $request->session()->regenerate();
+                    return redirect()->intended('/');
+                }
+            }
+            else {
+                return back()->with('loginError', 'Login failed!!!');
+            }
+        }
+        else {
+            $credentials = $request->validate([
+                'email' => 'required|email:dns',
+                'password' => 'required'
+            ]);
+
+            if (User::where('email', $request->email)->get()->first()->type == "member") {
+                if (Auth::attempt($credentials)) {
+                    $request->session()->regenerate();
+                    return redirect()->intended('/');
+                }
+            }
+            else {
+                return back()->with('loginError', 'Login failed!!!');
+            }
         }
 
         return back()->with('loginError', 'Login failed!!!');
