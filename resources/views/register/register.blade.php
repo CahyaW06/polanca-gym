@@ -77,7 +77,7 @@
         <form class="hidden max-w-sm mx-auto p-4 rounded-lg shadow sm:p-6 md:p-8" href="/register" enctype="multipart/form-data" method="POST" id="loginTrainer" role="tabpanel" aria-labelledby="trainer-tab">
             @csrf
             <div class="relative z-0 w-full mb-5 group">
-                <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('email') is-invalid @enderror" placeholder=" " required value="yudhacahyawijaya@gmail.com"/>
+                <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('email') is-invalid @enderror" placeholder=" " required/>
                 <label for="email" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
             </div>
             @error('email')
@@ -86,7 +86,7 @@
                 </div>
             @enderror
             <div class="relative z-0 w-full mb-5 group">
-                <input type="password" name="password" id="password" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('password') is-invalid @enderror" placeholder=" " required value="yudha123"/>
+                <input type="password" name="password" id="password" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('password') is-invalid @enderror" placeholder=" " required/>
                 <label for="password" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
             </div>
             @error('password')
@@ -95,7 +95,7 @@
                 </div>
             @enderror
             <div class="relative z-0 w-full mb-5 group">
-                <input type="password" name="repeat_password" id="repeat_password" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('repeat_password') is-invalid @enderror" placeholder=" " required value="yudha123"/>
+                <input type="password" name="repeat_password" id="repeat_password" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('repeat_password') is-invalid @enderror" placeholder=" " required />
                 <label for="repeat_password" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm password</label>
             </div>
             @error('repeat_password')
@@ -105,7 +105,7 @@
             @enderror
             <div class="grid md:grid-cols-2 md:gap-6">
               <div class="relative z-0 w-full mb-5 group">
-                  <input type="text" name="first_name" id="first_name" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('first_name') is-invalid @enderror" placeholder=" " required value="Yudha Cahya"/>
+                  <input type="text" name="first_name" id="first_name" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('first_name') is-invalid @enderror" placeholder=" " required/>
                   <label for="first_name" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
               </div>
             @error('first_name')
@@ -114,7 +114,7 @@
                 </div>
             @enderror
               <div class="relative z-0 w-full mb-5 group">
-                  <input type="text" name="last_name" id="last_name" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('last_name') is-invalid @enderror" placeholder=" " required value="Wijaya"/>
+                  <input type="text" name="last_name" id="last_name" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('last_name') is-invalid @enderror" placeholder=" " required/>
                   <label for="last_name" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last name</label>
               </div>
             @error('last_name')
