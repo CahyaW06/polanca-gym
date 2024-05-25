@@ -22,4 +22,5 @@ Route::resource("/register", RegisterController::class);
 
 // Admin
 Route::get('/adm-member', [AdminController::class, 'gotoMember'])->middleware(AdminMiddleware::class);
+Route::post('/adm-member', [AdminController::class, 'gotoMemberWithSearch'])->middleware(AdminMiddleware::class);
 Route::post('/adm-update-member', [AdminController::class, 'updateMember'])->middleware(AdminMiddleware::class);

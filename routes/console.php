@@ -12,5 +12,10 @@ Artisan::command("update:membership-time", function() {
             $user->membership_duration = floor(Carbon::now()->diffInMonths(Carbon::parse($user->membership_end_at)));
             $user->save();
         }
+        if (floor(Carbon::now()->gt(Carbon::parse($user->membership_end_at)))) {
+            $user->activated = 0;
+            $user->membership_duration = 0;
+            $user->save();
+        }
     }
 })->daily();
