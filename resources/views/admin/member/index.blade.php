@@ -141,11 +141,6 @@
 
                         @else
                             @if ($member->activated == 1)
-                            <form action="/down-trainer-apply-letter" method="POST" class="flex justify-center">
-                                @csrf
-                                <input type="number" name="user_id" value="{{ $member->id }}" class="hidden">
-                                <button type="submit" class="bg-blue-600 rounded py-2 px-3 w-max">Applicant Data</button>
-                            </form>
                             <form action="/adm-update-member" method="POST" class="flex justify-center">
                                 @csrf
                                 <input type="number" name="user_id" value="{{ $member->id }}" class="hidden">
@@ -159,6 +154,11 @@
                                 <input type="number" name="user_id" value="{{ $member->id }}" class="hidden">
                                 <input type="number" name="activate" value="1" class="hidden">
                                 <button type="submit" class="bg-green-400 rounded py-2 px-3 w-max">Activate</button>
+                            </form>
+                            <form action="/down-trainer-apply-letter" method="POST" class="flex justify-center">
+                                @csrf
+                                <input type="number" name="user_id" value="{{ $member->id }}" class="hidden">
+                                <button type="submit" class="bg-blue-600 rounded py-2 px-3 w-max">Applicant Data</button>
                             </form>
                             @endif
                         @endif
