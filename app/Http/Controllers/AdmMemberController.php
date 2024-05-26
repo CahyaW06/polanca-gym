@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use ZipArchive;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\User;
+use App\Models\Trainer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Collection;
 
-class AdminController extends Controller
+class AdmMemberController extends Controller
 {
     public function gotoMember() {
+        // return Storage::download("applicant_datas/".User::where('id', 1)->first()->trainer->apply_letter);
+
         return view("admin.member.index", [
             "title" => "Member List",
             "members" => User::whereIn("type", ["member", "trainer"])->cursorPaginate(10),
@@ -73,5 +78,47 @@ class AdminController extends Controller
             }
 
         return redirect('/adm-member');
+    }
+
+
+    public function downloadApplyLetter(Request $request) {
+        $zip = new ZipArchive;
+        $zipFileName = User::where('id', $request->user_id)->first()->last_name."'s_apply.zip";
+        $path = storage_path('app/applicant_datas/');
+        $path = str_replace('\\','/', $path);
+
+        $certificates = explode(",", Trainer::where('user_id', $request->user_id)->first()->certificates);
+
+        if ($zip->open(public_path($zipFileName), ZipArchive::CREATE) === TRUE) {
+            $filesToZip = [
+                Trainer::where('user_id', $request->user_id)->first()->apply_letter,
+                Trainer::where('user_id', $request->user_id)->first()->cv
+            ];
+
+            foreach($certificates as $certificate) {
+                array_push($filesToZip, $certificate);
+            }
+
+            foreach ($filesToZip as $key=>$file) {
+                if ($key == 0) {
+                    $zip->addFile($path.$file, basename("apply_letter.pdf"));
+                }
+                else if ($key == 1) {
+                    $zip->addFile($path.$file, basename("cv.pdf"));
+                }
+                else {
+                    $zip->addFile($path.$file, basename("certificate".($key-1).".pdf"));
+                }
+            }
+
+            $zip->close();
+
+            redirect('/adm-member');
+
+            return response()->download(public_path($zipFileName))->deleteFileAfterSend(true);
+        }
+        else {
+            return redirect('/adm-member');
+        }
     }
 }

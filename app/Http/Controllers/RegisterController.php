@@ -96,10 +96,10 @@ class RegisterController extends Controller
                 "password" => $validated["password"]
             ]);
 
-            $user = User::firstWhere('email', $validated['email'])->get();
+            $user = User::where('email', $validated['email'])->first();
 
             Trainer::create([
-                "user_id" => $user->first()->id,
+                "user_id" => $user->id,
                 "apply_letter" => $apply_letter->hashName(),
                 "cv" => $cv->hashName(),
                 "certificates" => $certificates,

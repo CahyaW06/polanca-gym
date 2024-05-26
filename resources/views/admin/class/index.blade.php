@@ -3,7 +3,7 @@
 @section('main-body')
 <div class="my-8 w-full" x-data="{target_id : 0}">
     <div class="relative mx-16 overflow-x-auto shadow-md sm:rounded-lg">
-        <div class="pb-4 bg-gray-900">
+        <div class="pb-4 bg-gray-900 flex gap-5 justify-between">
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative mt-1">
                 <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -17,6 +17,7 @@
                     <button type="submit" class="hidden"></button>
                 </form>
             </div>
+            <a href="/" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 flex items-center text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Class</a>
         </div>
         <table class="table w-full text-sm text-left rtl:text-right text-gray-400">
             <thead class="text-xs uppercase bg-gray-700 text-gray-400">
@@ -28,42 +29,22 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            First Name
+                            Class Name
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            Last Name
+                            Member/Max
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            Email
+                            Trainer/Max
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            Type
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        <div class="flex items-center">
-                            Remaining Membership Duration (Month)
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        <div class="flex items-center">
-                            Last Updated Membership
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        <div class="flex items-center">
-                            Membership End At
-                        </div>
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        <div class="flex items-center">
-                            Status
+                            Price
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -74,7 +55,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($members as $member)
+                {{-- @foreach ($members as $member)
                 <tr class="border-b w-full bg-gray-800 border-gray-700">
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
                         {{ $member->id }}
@@ -141,11 +122,6 @@
 
                         @else
                             @if ($member->activated == 1)
-                            <form action="/down-trainer-apply-letter" method="POST" class="flex justify-center">
-                                @csrf
-                                <input type="number" name="user_id" value="{{ $member->id }}" class="hidden">
-                                <button type="submit" class="bg-blue-600 rounded py-2 px-3 w-max">Applicant Data</button>
-                            </form>
                             <form action="/adm-update-member" method="POST" class="flex justify-center">
                                 @csrf
                                 <input type="number" name="user_id" value="{{ $member->id }}" class="hidden">
@@ -173,59 +149,7 @@
             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                 {{ $members->links() }}
             </ul>
-        </nav>
-    </div>
-
-    {{-- Update modal --}}
-    <div id="update-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-md max-h-full">
-            <!-- Modal content -->
-            <div class="relative rounded-lg shadow bg-gray-700">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                    <h3 class="text-lg font-semibold text-white">
-                        Set Membership Duration
-                    </h3>
-                </div>
-                <!-- Modal body -->
-                <form action="/adm-update-member" method="POST" class="my-5 grid justify-items-center items-center">
-                @csrf
-                    <input type="number" name="user_id" x-model="target_id" class="hidden">
-                    <input type="number" name="update" value="1" class="hidden">
-                    <div class="flex items-baseline mx-20">
-                        <input type="number" name="new_duration" id="new_duration" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="0">
-                        <label for="new_duration" class="text-md ms-3 text-white">month/s</label>
-                    </div>
-                    <button type="submit" class="bg-yellow-400 rounded py-2 px-3 my-5 mx-auto text-white">Update</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    {{-- Activate modal --}}
-    <div id="activate-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-md max-h-full">
-            <!-- Modal content -->
-            <div class="relative rounded-lg shadow bg-gray-700">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                    <h3 class="text-lg font-semibold text-white">
-                        Set Membership Duration
-                    </h3>
-                </div>
-                <!-- Modal body -->
-                <form action="/adm-update-member" method="POST" class="my-5 grid justify-items-center items-center">
-                @csrf
-                    <input type="number" name="user_id" x-model="target_id" class="hidden">
-                    <input type="number" name="activate" value="1" class="hidden">
-                    <div class="flex items-baseline mx-20">
-                        <input type="number" name="new_duration" id="new_duration" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="0">
-                        <label for="new_duration" class="text-md ms-3 text-white">month/s</label>
-                    </div>
-                    <button type="submit" class="bg-green-400 rounded py-2 px-3 my-5 mx-auto text-white">Activate</button>
-                </form>
-            </div>
-        </div>
+        </nav> --}}
     </div>
 </div>
 @endsection
