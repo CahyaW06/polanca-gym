@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Trainer;
-use App\Models\User;
+use App\Models\ClassMember;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Trainer;
+use App\Models\TrainingClass;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,6 +24,7 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Wijaya',
             'email' => 'yudhacahyawijaya@gmail.com',
             'type' => 'trainer',
+            'activated' => 1,
             'password' => Hash::make('yudha123'),
         ]);
 
@@ -65,5 +68,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->count(25)->create();
+
+        TrainingClass::create([
+            'name' => 'Yoga Class',
+            'max_member' => 20,
+            'max_trainer' => 3,
+            'subs' => 200000
+        ]);
+
+        TrainingClass::find(1)->users()->attach(2);
+        TrainingClass::find(1)->users()->attach(3);
+
+        TrainingClass::find(1)->trainers()->attach(1);
     }
 }

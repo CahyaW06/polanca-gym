@@ -19,4 +19,8 @@ class Trainer extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    public function trainingClasses() {
+        return $this->belongsToMany(TrainingClass::class, "trainer_trainingclasses", "user_id");
+    }
 }

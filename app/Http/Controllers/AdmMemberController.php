@@ -6,6 +6,7 @@ use ZipArchive;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Trainer;
+use App\Models\TrainingClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,15 +24,34 @@ class AdmMemberController extends Controller
     }
 
     public function gotoMemberWithSearch(Request $request) {
-        if (User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->get()) {
+        if ($request->member_class_id) {
+            $users = TrainingClass::find($request->member_class_id)->users();
             return view("admin.member.index", [
                 "title" => "Member List",
-                "members" => User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->cursorPaginate(10),
-                "total_member" => User::whereIn("type", ["member", "trainer"])->count(),
+                "members" => $users->cursorPaginate(10),
+                "total_member" => $users->get()->count(),
             ]);
         }
+        else if ($request->trainer_class_id) {
+            $users = TrainingClass::find($request->trainer_class_id)->trainers()->get();
+            $trainers = User::where("id", $users->pluck("user_id"));
+            return view("admin.member.index", [
+                "title" => "Trainer List",
+                "members" => $trainers->cursorPaginate(10),
+                "total_member" => $trainers->get()->count(),
+            ]);
+        }
+        else {
+            if (User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->get()) {
+                return view("admin.member.index", [
+                    "title" => "Member List",
+                    "members" => User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->cursorPaginate(10),
+                    "total_member" => User::whereIn("type", ["member", "trainer"])->count(),
+                ]);
+            }
+            return redirect('/adm-member');
+        }
 
-        return redirect('/adm-member');
     }
 
     public function updateMember(Request $request) {

@@ -50,8 +50,7 @@ class User extends Authenticatable
         return $this->hasOne(Trainer::class);
     }
 
-    public function trainingClasses() : BelongsToMany {
-        return $this->belongsToMany(TrainingClass::class);
+    public function trainingClasses() {
+        return $this->belongsToMany(TrainingClass::class, "trainingclasses_user");
     }
-
 }

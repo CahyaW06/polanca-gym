@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdmClassController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
@@ -8,6 +7,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdmMemberController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\LoginAdminController;
+use App\Http\Controllers\TrainingClassController;
 
 Route::get('/', [Controller::class, 'home']);
 
@@ -30,4 +30,5 @@ Route::post('/down-trainer-cv', [AdmMemberController::class, 'downloadCV'])->mid
 Route::post('/down-trainer-certificates', [AdmMemberController::class, 'downloadCertificates'])->middleware(AdminMiddleware::class);
 
 // Admin --> class page
-Route::resource('/adm-set-class', AdmClassController::class)->middleware(AdminMiddleware::class);
+Route::resource('/adm-set-class', TrainingClassController::class)->middleware(AdminMiddleware::class);
+Route::post('/see-class-member', [AdmMemberController::class, 'gotoMemberWithSearch'])->middleware(AdminMiddleware::class);

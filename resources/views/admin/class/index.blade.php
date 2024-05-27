@@ -11,7 +11,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <form action="/adm-member" method="POST">
+                <form action="/adm-class" method="POST">
                     @csrf
                     <input type="text" id="table_search" name="table_search" class="block pt-2 ps-10 text-sm rounded-lg w-80 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search with ID">
                     <button type="submit" class="hidden"></button>
@@ -44,7 +44,7 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            Price
+                            Subscription
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -55,101 +55,57 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($members as $member)
+                @foreach ($classes as $class)
                 <tr class="border-b w-full bg-gray-800 border-gray-700">
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
-                        {{ $member->id }}
+                        {{ $class->id }}
                     </th>
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
-                        {{ $member->first_name }}
+                        {{ $class->name }}
                     </th>
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
-                        {{ $member->last_name }}
+                        @if ($class->users()->count())
+                        <form action="/see-class-member" method="POST">
+                            @csrf
+                            <input class="hidden" type="text" name="member_class_id" value="{{ $class->id }}">
+                            <button type="submit">{{ $class->users()->count() }} / {{ $class->max_member }}</button><span class="ms-2"></span>
+                        </form>
+                        @else
+                            - / {{ $class->max_member }} <span class="ms-2">person</span>
+                        @endif
                     </th>
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
-                        {{ $member->email }}
+                        @if ($class->trainers()->count())
+                        <form action="/see-class-member" method="POST">
+                            @csrf
+                            <input class="hidden" type="text" name="trainer_class_id" value="{{ $class->id }}">
+                            <button type="submit">{{ $class->trainers()->count() }} / {{ $class->max_trainer }}</button><span class="ms-2">person</span>
+                        </form>
+                        @else
+                            - / {{ $class->max_trainer }}<span class="ms-2">person</span>
+                        @endif
                     </th>
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white uppercase">
-                        {{ $member->type }}
+                        {{ Number::currency($class->subs, 'IDR') }}
                     </th>
-                    <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
-                        @if ($member->activated == 1 && $member->type == "member")
-                            @if ($member->membership_duration > 1)
-                                {{ $member->membership_duration }} months
-                            @else
-                                {{ $member->membership_duration }} month
-                            @endif
-                        @else
-                            -
-                        @endif
-                    </th>
-                    <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
-                        @if ($member->activated == 1)
-                            {{ $member->update_membership_at }}
-                        @else
-                            -
-                        @endif
-                    </th>
-                    <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
-                        @if ($member->activated == 1 && $member->type == "member")
-                            {{ $member->membership_end_at }}
-                        @else
-                            -
-                        @endif
-                    </th>
-                    <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
-                        @if ($member->activated == 1)
-                            Active
-                        @else
-                            Inactive
-                        @endif
-                    </th>
-                    <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
-                        <div class="flex gap-3">
-                        @if ($member->type == "member")
-                            @if ($member->activated == 1)
-                            <button data-modal-target="update-modal" data-modal-toggle="update-modal" type="button" class="bg-yellow-400 rounded py-2 px-3 w-max" @click="target_id = {{ $member->id }}">Update</button>
-                            <form action="/adm-update-member" method="POST" class="flex justify-center">
-                                @csrf
-                                <input type="number" name="user_id" value="{{ $member->id }}" class="hidden">
-                                <input type="number" name="unactivate" value="1" class="hidden">
-                                <button type="submit" class="bg-red-500 rounded py-2 px-3 w-max">Unactivate</button>
-                            </form>
-
-                            @else
-                            <button data-modal-target="activate-modal" data-modal-toggle="activate-modal" type="button" class="bg-green-400 rounded py-2 px-3 w-max" @click="target_id = {{ $member->id }}">Activate</button>
-                            @endif
-
-                        @else
-                            @if ($member->activated == 1)
-                            <form action="/adm-update-member" method="POST" class="flex justify-center">
-                                @csrf
-                                <input type="number" name="user_id" value="{{ $member->id }}" class="hidden">
-                                <input type="number" name="unactivate" value="1" class="hidden">
-                                <button type="submit" class="bg-red-500 rounded py-2 px-3 w-max">Unactivate</button>
-                            </form>
-
-                            @else
-                            <form action="/adm-update-member" method="POST" class="flex justify-center">
-                                @csrf
-                                <input type="number" name="user_id" value="{{ $member->id }}" class="hidden">
-                                <input type="number" name="activate" value="1" class="hidden">
-                                <button type="submit" class="bg-green-400 rounded py-2 px-3 w-max">Activate</button>
-                            </form>
-                            @endif
-                        @endif
-                        </div>
+                    <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white flex">
+                        <button type="button" class="bg-yellow-400 rounded py-2 px-3 text-white">Edit</button>
+                        <form action="/adm-set-class/{{ $class->id }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="bg-red-500 rounded py-2 px-3 ms-2 text-white">Delete</button>
+                        </form>
                     </th>
                 </tr>
                 @endforeach
             </tbody>
         </table>
         <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-            <span class="text-sm font-normal text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-white">1 - {{ $members->count() }}</span> of <span class="font-semibold text-white">{{ $total_member }}</span></span>
+            <span class="text-sm font-normal text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-white">1 - {{ $classes->count() }}</span> of <span class="font-semibold text-white">{{ $total_class }}</span></span>
             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                {{ $members->links() }}
+                {{ $classes->links() }}
             </ul>
-        </nav> --}}
+        </nav>
     </div>
 </div>
 @endsection

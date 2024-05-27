@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\TrainingClass;
 use Illuminate\Http\Request;
 
-class AdmClassController extends Controller
+class TrainingClassController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        // dd(TrainingClass::cursorPaginate(10));
         return view('admin.class.index', [
-            "title" => "Member List",
+            "title" => "Class List",
+            "classes" => TrainingClass::cursorPaginate(10),
+            "total_class" => TrainingClass::count()
         ]);
     }
 
@@ -62,6 +65,9 @@ class AdmClassController extends Controller
      */
     public function destroy(TrainingClass $trainingClass)
     {
-        //
+        dd($trainingClass);
+        $trainingClass->delete();
+
+        redirect('/adm-set-class');
     }
 }
