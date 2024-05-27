@@ -1,7 +1,7 @@
 @extends("index")
 
 @section('main-body')
-<div class="my-8 w-full" x-data="{target_id : 0}">
+<div class="my-8 w-full" x-data="{target_id: 0, target_last_name: '', target_last_max_member: 0, target_last_max_trainer: 0, target_last_subs: 0}">
     <div class="relative mx-16 overflow-x-auto shadow-md sm:rounded-lg">
         <div class="pb-4 bg-gray-900 flex gap-5 justify-between">
             <label for="table-search" class="sr-only">Search</label>
@@ -11,7 +11,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <form action="/adm-class" method="POST">
+                <form action="/adm-set-class" method="POST">
                     @csrf
                     <input type="text" id="table_search" name="table_search" class="block pt-2 ps-10 text-sm rounded-lg w-80 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search with ID">
                     <button type="submit" class="hidden"></button>
@@ -89,11 +89,13 @@
                         {{ Number::currency($class->subs, 'IDR') }}
                     </th>
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white flex">
-                        <button type="button" class="bg-yellow-400 rounded py-2 px-3 text-white">Edit</button>
+                        <button data-modal-target="update-modal" data-modal-toggle="update-modal" type="button" class="bg-yellow-400 rounded py-2 px-3 text-white" @click="target_id = {{ $class->id }}; target_last_name = '{{ $class->name }}'; target_last_max_member = {{ $class->max_member }}; target_last_max_trainer = {{ $class->max_trainer }}; target_last_subs = {{ $class->subs }}">Edit</button>
+                        <button class="bg-green-400 rounded py-2 px-3 ms-2 text-white">Member</button>
+                        <button class="bg-green-400 rounded py-2 px-3 ms-2 text-white">Trainer</button>
                         <form action="/adm-set-class/{{ $class->id }}" method="POST">
+                            @method('DELETE')
                             @csrf
-                            @method('delete')
-                            <button type="submit" class="bg-red-500 rounded py-2 px-3 ms-2 text-white">Delete</button>
+                            <button type="submit" class="bg-red-500 rounded py-2 px-3 ms-2 text-white" onclick="return confirm('Are you sure to delete this class?')">Delete</button>
                         </form>
                     </th>
                 </tr>
@@ -107,5 +109,46 @@
             </ul>
         </nav>
     </div>
+
+    {{-- update modal --}}
+    <div id="update-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-md max-h-full">
+            <!-- Modal content -->
+            <div class="relative rounded-lg shadow bg-gray-800">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+                    <h3 class="text-lg font-semibold text-white">
+                        Set Class Properties
+                    </h3>
+                </div>
+                <!-- Modal body -->
+                <form action="/adm-set-class/update" method="POST" class="my-5 flex-col px-8 justify-items-start items-center">
+                @csrf
+                    <input type="number" name="target_id" x-model="target_id" class="hidden">
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="text" name="new_class_name" id="new_class_name" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_class_name') is-invalid @enderror" placeholder=" " x-model="target_last_name" required />
+                        <label for="new_class_name" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Class Name</label>
+                    </div>
+                    <div class="mt-3 flex gap-5">
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="number" name="new_max_member" id="new_max_member" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_max_member') is-invalid @enderror" placeholder=" " x-model="target_last_max_member" required />
+                            <label for="new_max_member" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Member</label>
+                        </div>
+                        <div class="relative z-0 w-full mb-5 group">
+                            <input type="number" name="new_max_trainer" id="new_max_trainer" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_max_trainer') is-invalid @enderror" placeholder=" " x-model="target_last_max_trainer" required />
+                            <label for="new_max_trainer" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Trainer</label>
+                        </div>
+                    </div>
+                    <div class="relative z-0 w-full mb-5 group">
+                        <input type="number" name="new_subs" id="new_subs" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_subs') is-invalid @enderror" placeholder=" " x-model="target_last_subs" required />
+                        <label for="new_subs" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Subscription</label>
+                    </div>
+
+                    <button type="submit" class="bg-yellow-400 rounded py-2 px-3 my-5 mx-auto text-white">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
 @endsection

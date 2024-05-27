@@ -12,7 +12,6 @@ class TrainingClassController extends Controller
      */
     public function index()
     {
-        // dd(TrainingClass::cursorPaginate(10));
         return view('admin.class.index', [
             "title" => "Class List",
             "classes" => TrainingClass::cursorPaginate(10),
@@ -60,14 +59,26 @@ class TrainingClassController extends Controller
         //
     }
 
+    public function updateClass(Request $request) {
+        if ($request) {
+            $class = TrainingClass::find($request->target_id);
+            $class->name = $request->new_class_name;
+            $class->max_member = $request->new_max_member;
+            $class->max_trainer = $request->new_max_trainer;
+            $class->subs = $request->new_subs;
+            $class->save();
+        }
+
+        return redirect('/adm-set-class');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TrainingClass $trainingClass)
+    public function destroy($id)
     {
-        dd($trainingClass);
-        $trainingClass->delete();
+        TrainingClass::find($id)->delete();
 
-        redirect('/adm-set-class');
+        return redirect('/adm-set-class');
     }
 }
