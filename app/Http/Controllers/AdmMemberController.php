@@ -34,7 +34,7 @@ class AdmMemberController extends Controller
         }
         else if ($request->trainer_class_id) {
             $users = TrainingClass::find($request->trainer_class_id)->trainers()->get();
-            $trainers = User::where("id", $users->pluck("user_id"));
+            $trainers = User::whereIn("id", $users->pluck("user_id"));
             return view("admin.member.index", [
                 "title" => "Trainer List",
                 "members" => $trainers->cursorPaginate(10),

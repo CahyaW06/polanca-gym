@@ -17,14 +17,41 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        for ($i = 1; $i <= 10; $i++) {
+            if ($i <= 5) {
+                User::create([
+                    'first_name' => fake()->firstName(),
+                    'last_name' => fake()->lastName(),
+                    'email' => fake()->unique()->safeEmail(),
+                    'type' => 'trainer',
+                    'password' => Hash::make('password123'),
+                    'activated' => 1,
+                ]);
+            }
+            else {
+                User::create([
+                    'first_name' => fake()->firstName(),
+                    'last_name' => fake()->lastName(),
+                    'email' => fake()->unique()->safeEmail(),
+                    'type' => 'trainer',
+                    'password' => Hash::make('password123'),
+                    'activated' => 0,
+                ]);
+            }
+
+            Trainer::create([
+                'user_id' => $i,
+                'apply_letter' => "MtpD4r6n3Cian4TYKXXqWLhCfADPKHwUhxUFJyHL.pdf",
+                'cv' => '1UBTaHaU1k436Fchgphi9q30bF2tziLF4Jk8Tk5l.pdf',
+                'certificates' => "cv2uZTM41oYpxYU6JPLvT9IXzzw3DNFQ4Xie0fpT.pdf,N6NXcTsgcEgtmgldFbeaDyoDvCC0CTISXWrda1CY.pdf"
+            ]);
+        }
 
         User::create([
-            'first_name' => 'Yudha Cahya',
-            'last_name' => 'Wijaya',
-            'email' => 'yudhacahyawijaya@gmail.com',
-            'type' => 'trainer',
-            'activated' => 1,
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'type' => 'admin',
             'password' => Hash::make('yudha123'),
         ]);
 
@@ -52,21 +79,6 @@ class DatabaseSeeder extends Seeder
             'membership_end_at' => Carbon::parse("2024-05-25")
         ]);
 
-        Trainer::create([
-            'user_id' => 1,
-            'apply_letter' => "MtpD4r6n3Cian4TYKXXqWLhCfADPKHwUhxUFJyHL.pdf",
-            'cv' => '1UBTaHaU1k436Fchgphi9q30bF2tziLF4Jk8Tk5l.pdf',
-            'certificates' => "cv2uZTM41oYpxYU6JPLvT9IXzzw3DNFQ4Xie0fpT.pdf,N6NXcTsgcEgtmgldFbeaDyoDvCC0CTISXWrda1CY.pdf"
-        ]);
-
-        User::create([
-            'first_name' => 'Admin',
-            'last_name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'type' => 'admin',
-            'password' => Hash::make('yudha123'),
-        ]);
-
         User::factory()->count(25)->create();
 
         TrainingClass::create([
@@ -76,9 +88,8 @@ class DatabaseSeeder extends Seeder
             'subs' => 200000
         ]);
 
-        TrainingClass::find(1)->users()->attach(2);
-        TrainingClass::find(1)->users()->attach(3);
+        TrainingClass::find(1)->users()->attach([12,13]);
 
-        TrainingClass::find(1)->trainers()->attach(1);
+        TrainingClass::find(1)->trainers()->attach([1, 2]);
     }
 }
