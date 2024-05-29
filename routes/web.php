@@ -32,4 +32,5 @@ Route::post('/down-trainer-certificates', [AdmMemberController::class, 'download
 // Admin --> class page
 Route::resource('/adm-set-class', TrainingClassController::class)->middleware(AdminMiddleware::class);
 Route::post('/adm-set-class/update', [TrainingClassController::class, 'updateClass'])->middleware(AdminMiddleware::class);
+Route::post('/adm-set-class/search', [TrainingClassController::class, 'searchClass'])->middleware(AdminMiddleware::class);
 Route::post('/see-class-member', [AdmMemberController::class, 'gotoMemberWithSearch'])->middleware(AdminMiddleware::class);

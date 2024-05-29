@@ -23,6 +23,16 @@ class TrainingClassController extends Controller
         ]);
     }
 
+    public function searchClass(Request $request) {
+        return view('admin.class.index', [
+            "title" => "Class List",
+            "classes" => TrainingClass::where('name', 'like', '%'.$request->table_search.'%')->orWhere('id', $request->table_search)->cursorPaginate(10),
+            "total_class" => TrainingClass::count(),
+            "all_active_member" => User::all()->where('type', 'member'),
+            "all_trainer" => Trainer::all()
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

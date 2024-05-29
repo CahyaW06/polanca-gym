@@ -42,10 +42,10 @@ class AdmMemberController extends Controller
             ]);
         }
         else {
-            if (User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->get()) {
+            if (User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->orWhere('first_name', 'like', '%'.$request->table_search.'%')->orWhere('last_name', 'like', '%'.$request->table_search.'%')->get()) {
                 return view("admin.member.index", [
                     "title" => "Member List",
-                    "members" => User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->cursorPaginate(10),
+                    "members" => User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->orWhere('first_name', 'like', '%'.$request->table_search.'%')->orWhere('last_name', 'like', '%'.$request->table_search.'%')->cursorPaginate(10),
                     "total_member" => User::whereIn("type", ["member", "trainer"])->count(),
                 ]);
             }
