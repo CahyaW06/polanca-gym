@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdmMemberController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\TrainingClassController;
@@ -34,3 +35,6 @@ Route::resource('/adm-set-class', TrainingClassController::class)->middleware(Ad
 Route::post('/adm-set-class/update', [TrainingClassController::class, 'updateClass'])->middleware(AdminMiddleware::class);
 Route::post('/adm-set-class/search', [TrainingClassController::class, 'searchClass'])->middleware(AdminMiddleware::class);
 Route::post('/see-class-member', [AdmMemberController::class, 'gotoMemberWithSearch'])->middleware(AdminMiddleware::class);
+
+// Admin --> inventory
+Route::resource('/inventory', InventoryController::class)->middleware(AdminMiddleware::class);

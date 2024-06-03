@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('update_membership_at')->nullable();
             $table->date('membership_end_at')->nullable();
             $table->string('password');
+            $table->string('img')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
