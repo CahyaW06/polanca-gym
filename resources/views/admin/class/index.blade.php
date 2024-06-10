@@ -6,7 +6,7 @@
     {{ session('change_fail') }}
 </div>
 @endif
-<div class="my-8 w-full" x-data="{target_id: 0, target_last_name: '', target_last_max_member: 0, target_last_max_trainer: 0, target_last_subs: 0}">
+<div class="my-8 w-full" x-data="{target_id: 0, target_last_name: '', target_last_max_member: 0, target_last_max_trainer: 0, target_last_subs: 0, all_checked_member: false, prev_checked_member: true, all_checked_trainer: false, prev_checked_trainer: true}">
     <div class="relative mx-16 overflow-x-auto shadow-md sm:rounded-lg">
         <div class="pb-4 bg-gray-900 flex gap-5 justify-between">
             <label for="table-search" class="sr-only">Search</label>
@@ -134,7 +134,7 @@
                                         <tr>
                                             <th scope="col" class="p-4">
                                                 <div class="flex items-center">
-                                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" @click="all_checked_member = ! all_checked_member, prev_checked_member = all_checked_member">
                                                     <label for="checkbox-all" class="sr-only">checkbox</label>
                                                 </div>
                                             </th>
@@ -160,7 +160,7 @@
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <td class="w-4 p-4">
                                                 <div class="flex items-center">
-                                                    <input checked id="checkbox-table-1" type="checkbox" name="prev_member_id[{{ $key }}]" value="{{ $member->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input :checked="prev_checked_member" id="checkbox-table-1" type="checkbox" name="prev_member_id[{{ $key }}]" value="{{ $member->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                     <label for="checkbox-table-1" class="sr-only">checkbox</label>
                                                 </div>
                                             </td>
@@ -187,7 +187,7 @@
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <td class="w-4 p-4">
                                                 <div class="flex items-center">
-                                                    <input id="checkbox-table-1" type="checkbox" name="new_member_id[{{ $key }}]" value="{{ $member->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input :checked="all_checked_member" id="checkbox-table-1" type="checkbox" name="new_member_id[{{ $key }}]" value="{{ $member->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                     <label for="checkbox-table-1" class="sr-only">checkbox</label>
                                                 </div>
                                             </td>
@@ -240,7 +240,7 @@
                                         <tr>
                                             <th scope="col" class="p-4">
                                                 <div class="flex items-center">
-                                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" @click="all_checked_trainer = ! all_checked_trainer, prev_checked_trainer = all_checked_trainer">
                                                     <label for="checkbox-all" class="sr-only">checkbox</label>
                                                 </div>
                                             </th>
@@ -266,7 +266,7 @@
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <td class="w-4 p-4">
                                                 <div class="flex items-center">
-                                                    <input checked id="checkbox-table-1" type="checkbox" name="prev_trainer_id[{{ $key }}]" value="{{ $trainer->user()->first()->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input :checked="prev_checked_trainer" id="checkbox-table-1" type="checkbox" name="prev_trainer_id[{{ $key }}]" value="{{ $trainer->user()->first()->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                     <label for="checkbox-table-1" class="sr-only">checkbox</label>
                                                 </div>
                                             </td>
@@ -288,13 +288,12 @@
                                         </tr>
                                         @endforeach
 
-                                            {{-- @dd() --}}
-                                            @foreach ($all_trainer as $key=>$trainer)
-                                            @if (!$trainer->trainingClasses->contains($class->id))
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                                <td class="w-4 p-4">
-                                                    <div class="flex items-center">
-                                                    <input id="checkbox-table-1" type="checkbox" name="new_trainer_id[{{ $key }}]" value="{{ $trainer->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                        @foreach ($all_trainer as $key=>$trainer)
+                                        @if (!$trainer->trainingClasses->contains($class->id))
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <td class="w-4 p-4">
+                                                <div class="flex items-center">
+                                                    <input :checked="all_checked_trainer" id="checkbox-table-1" type="checkbox" name="new_trainer_id[{{ $key }}]" value="{{ $trainer->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                                     <label for="checkbox-table-1" class="sr-only">checkbox</label>
                                                 </div>
                                             </td>

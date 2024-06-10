@@ -89,7 +89,14 @@ class DatabaseSeeder extends Seeder
             'subs' => 200000
         ]);
 
-        TrainingClass::find(1)->users()->attach([12,13]);
+        TrainingClass::create([
+            'name' => 'Karate Class',
+            'max_member' => 10,
+            'max_trainer' => 5,
+            'subs' => 100000
+        ]);
+
+        TrainingClass::find(1)->users()->attach([12, 13]);
         TrainingClass::find(1)->trainers()->attach([1, 2]);
 
         Inventory::factory()->count(30)->create();

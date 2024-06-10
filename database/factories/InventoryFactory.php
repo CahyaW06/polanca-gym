@@ -20,6 +20,7 @@ class InventoryFactory extends Factory
         $name = ["Barbel", "Treadmill", "Mattras", "Dumbbell", "Bench Press"];
         return [
             'name' => $name[rand(0, sizeof($name)-1)],
+            'training_class_id' => rand(0, 2)
         ];
     }
 }

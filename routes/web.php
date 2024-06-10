@@ -16,11 +16,11 @@ Route::get('/login', [LoginUserController::class, 'index'])->middleware("guest")
 Route::post('/login', [LoginUserController::class, 'autentificate']);
 Route::post('/logout', [LoginUserController::class, 'logout']);
 
-Route::get('/login-adm', [LoginAdminController::class, 'index']);
+Route::get('/login-adm', [LoginAdminController::class, 'index'])->middleware("guest");
 Route::post('/login-adm', [LoginAdminController::class, 'autentificate']);
 Route::post('/logout-adm', [LoginAdminController::class, 'logout']);
 
-Route::resource("/register", RegisterController::class);
+Route::resource("/register", RegisterController::class)->middleware("guest");
 
 // Admin --> member page
 Route::get('/adm-member', [AdmMemberController::class, 'gotoMember'])->middleware(AdminMiddleware::class);
@@ -38,3 +38,4 @@ Route::post('/see-class-member', [AdmMemberController::class, 'gotoMemberWithSea
 
 // Admin --> inventory
 Route::resource('/inventory', InventoryController::class)->middleware(AdminMiddleware::class);
+Route::post('/inventory/update', [InventoryController::class, 'updateItem'])->middleware(AdminMiddleware::class);

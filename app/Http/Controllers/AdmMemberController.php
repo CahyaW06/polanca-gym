@@ -8,13 +8,10 @@ use App\Models\User;
 use App\Models\Trainer;
 use App\Models\TrainingClass;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Collection;
 
 class AdmMemberController extends Controller
 {
     public function gotoMember() {
-        // return Storage::download("applicant_datas/".User::where('id', 1)->first()->trainer->apply_letter);
 
         return view("admin.member.index", [
             "title" => "Member List",

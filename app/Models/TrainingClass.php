@@ -20,4 +20,8 @@ class TrainingClass extends Model
     public function trainers() {
         return $this->belongsToMany(Trainer::class, "trainer_trainingclasses");
     }
+
+    public function inventories() {
+        return $this->hasMany(Inventory::class, "training_class_id");
+    }
 }

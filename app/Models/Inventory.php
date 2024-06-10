@@ -12,4 +12,8 @@ class Inventory extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function trainingClass() {
+        return $this->belongsTo(TrainingClass::class, "training_class_id");
+    }
 }
