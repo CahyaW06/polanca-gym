@@ -7,7 +7,7 @@
 </div>
 @endif
 <div class="my-8 w-full" x-data="{target_id: 0, target_last_name: '', target_last_max_member: 0, target_last_max_trainer: 0, target_last_subs: 0, all_checked_member: false, prev_checked_member: true, all_checked_trainer: false, prev_checked_trainer: true}">
-    <div class="relative mx-16 overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative mx-16 overflow-x-auto sm:rounded-lg">
         <div class="pb-4 bg-gray-900 flex gap-5 justify-between">
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative mt-1">

@@ -53,15 +53,15 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Admin',
             'email' => 'admin@gmail.com',
             'type' => 'admin',
-            'password' => Hash::make('yudha123'),
+            'password' => Hash::make('admin'),
         ]);
 
         User::create([
-            'first_name' => 'Ahmad',
-            'last_name' => 'Wijaya',
-            'email' => 'yudhacahya@gmail.com',
+            'first_name' => 'Surojo',
+            'last_name' => 'Di Ningrat',
+            'email' => 'user@gmail.com',
             'type' => 'member',
-            'password' => Hash::make('yudha123'),
+            'password' => Hash::make('user'),
             'activated' => 1,
             'membership_duration' => 4,
             'update_membership_at' => Carbon::parse('2024-03-26'),

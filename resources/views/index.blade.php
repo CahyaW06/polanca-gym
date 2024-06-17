@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Polanca GYM | {{ $title }}</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
-    @livewireStyles
 </head>
 <body class="bg-gray-900">
     @include("partial.navbar")
 
-    @yield('main-body')</body>
-    @livewireScripts
+    @yield('main-body')
+    @stack("scripts")
+</body>
 </html>

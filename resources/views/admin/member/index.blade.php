@@ -2,7 +2,7 @@
 
 @section('main-body')
 <div class="my-8 w-full" x-data="{target_id : 0}">
-    <div class="relative mx-16 overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative mx-16 overflow-x-auto sm:rounded-lg">
         <div class="pb-4 bg-gray-900">
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative mt-1">
