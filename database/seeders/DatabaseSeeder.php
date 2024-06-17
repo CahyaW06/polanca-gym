@@ -86,14 +86,18 @@ class DatabaseSeeder extends Seeder
             'name' => 'Yoga Class',
             'max_member' => 20,
             'max_trainer' => 3,
-            'subs' => 200000
+            'subs' => 200000,
+            'img' => "dummy_class.png",
+            'desc' => 'Kelas yoga kami cocok untuk semua tingkatan, dipandu oleh instruktur berpengalaman. Fokus pada keseimbangan tubuh dan pikiran, meningkatkan fleksibilitas, kekuatan, dan kesehatan mental.'
         ]);
 
         TrainingClass::create([
             'name' => 'Karate Class',
             'max_member' => 10,
             'max_trainer' => 5,
-            'subs' => 100000
+            'subs' => 100000,
+            'img' => "dummy_class.png",
+            'desc' => "Kelas karate kami menawarkan pelatihan intensif untuk semua tingkat. Dipandu oleh instruktur berpengalaman, peserta belajar teknik dasar hingga lanjutan, serta pengembangan disiplin dan karakter"
         ]);
 
         TrainingClass::find(1)->users()->attach([12, 13]);

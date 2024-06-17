@@ -8,7 +8,9 @@ use App\Http\Controllers\AdmMemberController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\LoginAdminController;
+use App\Http\Controllers\MemClass;
 use App\Http\Controllers\TrainingClassController;
+use App\Http\Middleware\MemberMiddleware;
 
 Route::get('/', [Controller::class, 'home']);
 
@@ -39,3 +41,6 @@ Route::post('/see-class-member', [AdmMemberController::class, 'gotoMemberWithSea
 // Admin --> inventory
 Route::resource('/inventory', InventoryController::class)->middleware(AdminMiddleware::class);
 Route::post('/inventory/update', [InventoryController::class, 'updateItem'])->middleware(AdminMiddleware::class);
+
+// Member --> join class
+Route::resource('/join-class', MemClass::class)->middleware(MemberMiddleware::class);
