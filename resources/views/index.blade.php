@@ -7,7 +7,7 @@
     <title>Polanca GYM | {{ $title }}</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body class="bg-gray-900">
+<body class="bg-black">
     @include("partial.navbar")
 
     @yield('main-body')

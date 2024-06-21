@@ -10,7 +10,9 @@ module.exports = {
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php'
   ],
   theme: {
-    extend: {},
+    extend: {
+
+    },
   },
   plugins: [
     require('flowbite/plugin')({
