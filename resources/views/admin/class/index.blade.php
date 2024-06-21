@@ -6,26 +6,26 @@
     {{ session('change_fail') }}
 </div>
 @endif
-<div class="my-8 w-full" x-data="{target_id: 0, target_last_name: '', target_last_max_member: 0, target_last_max_trainer: 0, target_last_subs: 0, all_checked_member: false, prev_checked_member: true, all_checked_trainer: false, prev_checked_trainer: true}">
-    <div class="relative mx-16 overflow-x-auto sm:rounded-lg">
-        <div class="pb-4 bg-gray-900 flex gap-5 justify-between">
+<div class="mt-32 w-full" x-data="{target_id: 0, target_last_name: '', target_last_max_member: 0, target_last_max_trainer: 0, target_last_subs: 0, all_checked_member: false, prev_checked_member: true, all_checked_trainer: false, prev_checked_trainer: true}">
+    <div class="relative mx-16 rounded-lg">
+        <div class="p-4 flex gap-5 justify-between">
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative mt-1">
                 <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-4 h-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
                 <form action="/adm-set-class/search" method="POST">
                     @csrf
-                    <input type="text" id="table_search" name="table_search" class="block pt-2 ps-10 text-sm rounded-lg w-80 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Search class">
+                    <input type="text" id="table_search" name="table_search" class="pt-2 ps-10 text-sm text-white w-80 bg-transparent border-b border-0 border-white placeholder:text-white focus:outline-none" placeholder="Search class">
                     <button type="submit" class="hidden"></button>
                 </form>
             </div>
-            <button data-modal-target="store-modal" data-modal-toggle="store-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 flex items-center text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Class</button>
+            <button data-modal-target="store-modal" data-modal-toggle="store-modal" type="button" class="text-white bg-amber-500 hover:bg-amber-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 flex items-center text-center">Add Class</button>
         </div>
-        <table class="table w-full text-sm text-left rtl:text-right text-gray-400">
-            <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+        <table class="table w-full text-left rtl:text-right text-gray-400 mt-8">
+            <thead class="text-sm uppercase text-amber-500 border-b-2 border-amber-500">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
@@ -61,7 +61,7 @@
             </thead>
             <tbody>
                 @foreach ($classes as $class)
-                <tr class="border-b w-full bg-gray-800 border-gray-700">
+                <tr class="border-b w-full border-white">
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
                         {{ $class->id }}
                     </th>

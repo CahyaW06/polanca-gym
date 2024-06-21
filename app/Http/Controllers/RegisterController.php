@@ -63,6 +63,7 @@ class RegisterController extends Controller
                 'email' => 'required|unique:users|email:dns',
                 'password' => 'required|max:255|min:8',
                 'repeat_password' => 'required|same:password',
+                'photo' => 'required|mimetypes:image/jpeg',
                 'apply_letter' => 'required|mimetypes:application/pdf',
                 'cv' => 'required|mimetypes:application/pdf',
                 'certificates[]' => 'mimetypes:application/pdf',
@@ -71,6 +72,9 @@ class RegisterController extends Controller
             $validated['password'] = Hash::make($validated['password']);
 
             // save file
+            $photo = $request->file('photo');
+            $photo->store('applicant_datas');
+
             $apply_letter = $request->file('apply_letter');
             $apply_letter->store('applicant_datas');
 
@@ -100,6 +104,7 @@ class RegisterController extends Controller
 
             Trainer::create([
                 "user_id" => $user->id,
+                "photo" => $photo->hashName(),
                 "apply_letter" => $apply_letter->hashName(),
                 "cv" => $cv->hashName(),
                 "certificates" => $certificates,

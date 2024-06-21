@@ -1,7 +1,7 @@
 @extends('index')
 
 @section('main-body')
-    <div class="flex w-full mt-10">
+    <div class="flex w-full mt-32">
         <div class="w-full" x-data="{ selected: false }">
             <div id="class-carousel" class="relative w-full" :data-carousel="selected ? 'static' : 'slide'" data-carousel-interval=7000>
                 <!-- Carousel wrapper -->

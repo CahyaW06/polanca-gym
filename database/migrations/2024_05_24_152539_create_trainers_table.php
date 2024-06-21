@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignIdFor(User::class);
+            $table->string("photo");
             $table->string("apply_letter");
             $table->string("cv");
             $table->string("certificates");
