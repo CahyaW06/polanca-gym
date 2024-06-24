@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdmMemberController;
+use App\Http\Controllers\AdmSettingController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\LoginAdminController;
@@ -41,6 +42,9 @@ Route::post('/see-class-member', [AdmMemberController::class, 'gotoMemberWithSea
 // Admin --> inventory
 Route::resource('/inventory', InventoryController::class)->middleware(AdminMiddleware::class);
 Route::post('/inventory/update', [InventoryController::class, 'updateItem'])->middleware(AdminMiddleware::class);
+
+// Admin --> Settings
+Route::resource('/gym-settings', AdmSettingController::class)->middleware(AdminMiddleware::class);
 
 // Member --> join class
 Route::resource('/join-class', MemClass::class)->middleware(MemberMiddleware::class);

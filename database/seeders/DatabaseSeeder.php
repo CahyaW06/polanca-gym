@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Trainer;
 use App\Models\Inventory;
 use App\Models\ClassMember;
+use App\Models\Setting;
 use App\Models\TrainingClass;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -105,5 +106,14 @@ class DatabaseSeeder extends Seeder
         TrainingClass::find(1)->trainers()->attach([1, 2]);
 
         Inventory::factory()->count(30)->create();
+
+        Setting::create([
+            'gym_name' => "Polanca GYM",
+            'gym_motto' => 'Unleash Your Inner Athlete',
+            'payment_one_month' => 69999,
+            'payment_three_month' => 169999,
+            'payment_five_month' => 269999,
+        ]);
+
     }
 }

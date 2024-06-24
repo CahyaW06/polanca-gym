@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use ZipArchive;
 use Carbon\Carbon;
 use App\Models\User;
@@ -15,6 +16,7 @@ class AdmMemberController extends Controller
 
         return view("admin.member.index", [
             "title" => "Member List",
+            'lastSetting' => Setting::all()->last(),
             "members" => User::whereIn("type", ["member", "trainer"])->cursorPaginate(8),
             "total_member" => User::whereIn("type", ["member", "trainer"])->count(),
         ]);

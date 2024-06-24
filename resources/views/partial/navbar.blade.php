@@ -2,8 +2,8 @@
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 h-24">
       <a href="/">
         <div class="text-left whitespace-nowrap">
-          <h1 class="text-xl text-amber-500 tracking-tight leading-none font-extrabold mb-1">Polanca GYM</h1>
-          <h1 class="text-sm text-white">Unleash Your Inner Athlete</h1>
+          <h1 class="text-xl text-amber-500 tracking-tight leading-none font-extrabold mb-1">{{ $lastSetting->gym_name }}</h1>
+          <h1 class="text-sm text-white">{{ $lastSetting->gym_motto }}</h1>
         </div>
       </a>
 
@@ -39,6 +39,9 @@
           </li>
           <li>
             <a href="/inventory" class="block py-2 px-4 text-white  hover:text-amber-500 {{ ($title == "Gym Inventory") ? 'border-b-2 border-amber-500' : ''}}">Gym Inventory</a>
+          </li>
+          <li>
+            <a href="/gym-settings" class="block py-2 px-4 text-white  hover:text-amber-500 {{ ($title == "Gym Settings") ? 'border-b-2 border-amber-500' : ''}}">Gym Settings</a>
           </li>
           @endif
 

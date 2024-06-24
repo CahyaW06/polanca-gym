@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\TrainingClass;
 use App\Http\Requests\StoreInventoryRequest;
 use App\Http\Requests\UpdateInventoryRequest;
+use App\Models\Setting;
 
 class InventoryController extends Controller
 {
@@ -20,6 +21,7 @@ class InventoryController extends Controller
         // return Inventory::first()->trainingClass;
         return view('admin.inventory.index', [
             "title" => "Class List",
+            'lastSetting' => Setting::all()->last(),
             "classes" => TrainingClass::cursorPaginate(5),
             "total_class" => TrainingClass::count(),
             "all_inventory" => Inventory::all(),

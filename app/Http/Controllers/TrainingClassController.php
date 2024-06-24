@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use App\Models\User;
 use App\Models\Trainer;
 use Illuminate\Http\Request;
@@ -16,6 +17,7 @@ class TrainingClassController extends Controller
     {
         return view('admin.class.index', [
             "title" => "Class List",
+            'lastSetting' => Setting::all()->last(),
             "classes" => TrainingClass::cursorPaginate(10),
             "total_class" => TrainingClass::count(),
             "all_active_member" => User::all()->where('type', 'member'),
