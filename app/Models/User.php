@@ -53,4 +53,8 @@ class User extends Authenticatable
     public function trainingClasses() {
         return $this->belongsToMany(TrainingClass::class, "trainingclasses_user");
     }
+
+    public function histories() {
+        return $this->hasMany(History::class);
+    }
 }

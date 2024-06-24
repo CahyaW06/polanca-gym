@@ -10,6 +10,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\MemClass;
+use App\Http\Controllers\MemMembership;
 use App\Http\Controllers\TrainingClassController;
 use App\Http\Middleware\MemberMiddleware;
 
@@ -48,3 +49,8 @@ Route::resource('/gym-settings', AdmSettingController::class)->middleware(AdminM
 
 // Member --> join class
 Route::resource('/join-class', MemClass::class)->middleware(MemberMiddleware::class);
+
+// Member --> membership
+Route::get('/membership', [MemMembership::class, 'index'])->middleware(MemberMiddleware::class);
+Route::post('/payment', [MemMembership::class, 'payment'])->middleware(MemberMiddleware::class);
+Route::get('/payment-done', [MemMembership::class, 'paymentDone'])->middleware(MemberMiddleware::class);

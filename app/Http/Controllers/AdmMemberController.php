@@ -27,6 +27,7 @@ class AdmMemberController extends Controller
             $users = TrainingClass::find($request->member_class_id)->users();
             return view("admin.member.index", [
                 "title" => "Member List",
+                'lastSetting' => Setting::all()->last(),
                 "members" => $users->cursorPaginate(8),
                 "total_member" => $users->get()->count(),
             ]);
@@ -36,6 +37,7 @@ class AdmMemberController extends Controller
             $trainers = User::whereIn("id", $users->pluck("user_id"));
             return view("admin.member.index", [
                 "title" => "Trainer List",
+                'lastSetting' => Setting::all()->last(),
                 "members" => $trainers->cursorPaginate(8),
                 "total_member" => $trainers->get()->count(),
             ]);
@@ -44,6 +46,7 @@ class AdmMemberController extends Controller
             if (User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->orWhere('first_name', 'like', '%'.$request->table_search.'%')->orWhere('last_name', 'like', '%'.$request->table_search.'%')->get()) {
                 return view("admin.member.index", [
                     "title" => "Member List",
+                    'lastSetting' => Setting::all()->last(),
                     "members" => User::whereIn("type", ["member", "trainer"])->where('id', $request->table_search)->orWhere('first_name', 'like', '%'.$request->table_search.'%')->orWhere('last_name', 'like', '%'.$request->table_search.'%')->cursorPaginate(8),
                     "total_member" => User::whereIn("type", ["member", "trainer"])->count(),
                 ]);
