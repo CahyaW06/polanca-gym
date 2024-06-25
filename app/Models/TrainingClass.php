@@ -24,4 +24,8 @@ class TrainingClass extends Model
     public function inventories() {
         return $this->hasMany(Inventory::class, "training_class_id");
     }
+
+    public function classHistories() {
+        return $this->hasMany(ClassHistory::class);
+    }
 }

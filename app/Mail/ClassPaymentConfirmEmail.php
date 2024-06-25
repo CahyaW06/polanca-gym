@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\ClassHistory;
 use App\Models\History;
 use App\Models\Setting;
 use App\Models\TrainingClass;
@@ -26,7 +27,7 @@ class ClassPaymentConfirmEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(protected History $history, protected Setting $lastSetting, protected TrainingClass $class)
+    public function __construct(protected ClassHistory $classHistory, protected Setting $lastSetting)
     {
         //
     }
@@ -77,13 +78,11 @@ class ClassPaymentConfirmEmail extends Mailable
         );
 
         return new Content(
-            view: 'emails.sendPayment',
+            view: 'emails.sendClassPayment',
             with: [
-                'user' => $this->history->user,
-                'pay_for' => $this->history->pay_for,
-                'membership_type' => $this->history->membership_type,
+                'user' => $this->classHistory->user,
+                'class' => $this->classHistory->trainingClass,
                 'lastSetting' => $this->lastSetting,
-                'class' => $this->class,
             ]
         );
     }
@@ -96,7 +95,7 @@ class ClassPaymentConfirmEmail extends Mailable
     public function attachments(): array
     {
         return [
-            Attachment::fromStorage('class_recipients/'.$this->history->proof)
+            Attachment::fromStorage('class_recipients/'.$this->classHistory->proof)
         ];
     }
 }

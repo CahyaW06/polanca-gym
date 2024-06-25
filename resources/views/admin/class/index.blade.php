@@ -39,6 +39,16 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
+                            Day
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Time
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
                             Member/Max
                         </div>
                     </th>
@@ -67,6 +77,12 @@
                     </th>
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
                         {{ $class->name }}
+                    </th>
+                    <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
+                        {{ $class->day }}
+                    </th>
+                    <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
+                        {{ $class->time }}
                     </th>
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white">
                         @if ($class->users()->count())
@@ -325,7 +341,7 @@
         @endforeach
 
         <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-            <span class="text-sm font-normal text-white mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-white">@if($members->count() > 0) 1 @else 0 @endif - {{ $members->count() }}</span> of <span class="font-semibold text-white">{{ $total_class }}</span></span>
+            <span class="text-sm font-normal text-white mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-white">@if($classes->count() > 0) 1 @else 0 @endif - {{ $classes->count() }}</span> of <span class="font-semibold text-white">{{ $total_class }}</span></span>
             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                 {{ $classes->links() }}
             </ul>
@@ -365,6 +381,79 @@
                         <input type="number" name="new_subs" id="new_subs" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_subs') is-invalid @enderror" placeholder=" " x-model="target_last_subs" required />
                         <label for="new_subs" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Subscription</label>
                     </div>
+
+                    <div class="flex justify-between w-full">
+                        <button id="selectNewDay" data-dropdown-toggle="selectNewDayMenu" class="text-white bg-amber-500 hover:bg-amber-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Select Day <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div id="selectNewDayMenu" class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow ">
+                                <ul class="p-3 space-y-3 text-sm" aria-labelledby="selectNewDay">
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input checked id="day-radio-1" type="radio" value="Monday" name="newDayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-1" class="ms-2 text-sm font-medium text-amber-500">Monday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-2" type="radio" value="Tuesday" name="newDayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="default-radio-2" class="ms-2 text-sm font-medium text-amber-500">Tuesday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-3" type="radio" value="Wednesday" name="newDayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-3" class="ms-2 text-sm font-medium text-amber-500">Wednesday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-4" type="radio" value="Thursday" name="newDayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-4" class="ms-2 text-sm font-medium text-amber-500">Thursday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-5" type="radio" value="Friday" name="newDayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-5" class="ms-2 text-sm font-medium text-amber-500">Friday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-6" type="radio" value="Saturday" name="newDayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-6" class="ms-2 text-sm font-medium text-amber-500">Saturday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-7" type="radio" value="Sunday" name="newDayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-7" class="ms-2 text-sm font-medium text-amber-500">Sunday</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        <div class="">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                                    <svg class="w-4 h-4 text-amber-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <input type="time" id="time" name="time" class="bg-gray-50 border leading-none border-amber-500 text-black text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5" min="09:00" max="18:00" value="00:00" required />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group mt-5">
+                        <label for="desc" class="block mb-2 text-sm font-medium text-gray-900">Class Description</label>
+                        <textarea id="desc" name="newDesc" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg focus:ring-0 focus:outline-0" placeholder="Write this class description"></textarea>
+                    </div>
+
                     <div class="relative z-0 w-full mb-5 group mt-3">
                         <label class="block mb-3 text-xs font-medium text-black" for="classImg">Class Image</label>
                         <input class="block w-full text-xs border rounded-lg cursor-pointer text-black focus:outline-none bg-white border-amber-500 placeholder-gray-400 @error('classImg') is-invalid @enderror" aria-describedby="classImg_help" id="classImg" name="classImg" type="file" required>
@@ -397,23 +486,96 @@
                 <form action="/adm-set-class" method="POST" enctype="multipart/form-data" class="py-5 grid px-8 justify-items-start items-center bg-[#FFF9E1]">
                     @csrf
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" name="new_class_name" id="new_class_name" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_class_name') is-invalid @enderror" placeholder=" " required />
+                        <input type="text" name="new_class_name" id="new_class_name" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_class_name') is-invalid @enderror" placeholder=" " required />
                         <label for="new_class_name" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Class Name</label>
                     </div>
                     <div class="mt-3 flex gap-5 w-full">
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="number" name="new_max_member" id="new_max_member" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_max_member') is-invalid @enderror" placeholder=" " required />
+                            <input type="number" name="new_max_member" id="new_max_member" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_max_member') is-invalid @enderror" placeholder=" " required />
                             <label for="new_max_member" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Member</label>
                         </div>
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="number" name="new_max_trainer" id="new_max_trainer" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_max_trainer') is-invalid @enderror" placeholder=" " required />
+                            <input type="number" name="new_max_trainer" id="new_max_trainer" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_max_trainer') is-invalid @enderror" placeholder=" " required />
                             <label for="new_max_trainer" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Trainer</label>
                         </div>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="number" name="new_subs" id="new_subs" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_subs') is-invalid @enderror" placeholder=" " required />
+                        <input type="number" name="new_subs" id="new_subs" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_subs') is-invalid @enderror" placeholder=" " required />
                         <label for="new_subs" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Subscription</label>
                     </div>
+
+                    <div class="flex justify-between w-full">
+                        <button id="selectDay" data-dropdown-toggle="selectDayMenu" class="text-white bg-amber-500 hover:bg-amber-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center" type="button">Select Day <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div id="selectDayMenu" class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow ">
+                                <ul class="p-3 space-y-3 text-sm" aria-labelledby="selectDay">
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input checked id="day-radio-1" type="radio" value="Monday" name="dayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-1" class="ms-2 text-sm font-medium text-amber-500">Monday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-2" type="radio" value="Tuesday" name="dayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="default-radio-2" class="ms-2 text-sm font-medium text-amber-500">Tuesday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-3" type="radio" value="Wednesday" name="dayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-3" class="ms-2 text-sm font-medium text-amber-500">Wednesday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-4" type="radio" value="Thursday" name="dayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-4" class="ms-2 text-sm font-medium text-amber-500">Thursday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-5" type="radio" value="Friday" name="dayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-5" class="ms-2 text-sm font-medium text-amber-500">Friday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-6" type="radio" value="Saturday" name="dayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-6" class="ms-2 text-sm font-medium text-amber-500">Saturday</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="flex items-center">
+                                            <input id="day-radio-7" type="radio" value="Sunday" name="dayRadio" class="w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 focus:ring-amber-500">
+                                            <label for="day-radio-7" class="ms-2 text-sm font-medium text-amber-500">Sunday</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        <div class="">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                                    <svg class="w-4 h-4 text-amber-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <input type="time" id="time" name="time" class="bg-gray-50 border leading-none border-amber-500 text-black text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5" min="09:00" max="18:00" value="00:00" required />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="relative z-0 w-full mb-5 group mt-5">
+                        <label for="desc" class="block mb-2 text-sm font-medium text-gray-900">Class Description</label>
+                        <textarea id="desc" name="desc" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg focus:ring-0 focus:outline-0" placeholder="Write this class description"></textarea>
+                    </div>
+
                     <div class="relative z-0 w-full mb-5 group mt-3">
                         <label class="block mb-3 text-xs font-medium text-black" for="classImg">Class Image</label>
                         <input class="block w-full text-xs border rounded-lg cursor-pointer text-black focus:outline-none bg-white border-amber-500 placeholder-gray-400 @error('classImg') is-invalid @enderror" aria-describedby="classImg_help" id="classImg" name="classImg" type="file">

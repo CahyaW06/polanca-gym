@@ -20,6 +20,8 @@
                     <div class="flex align-baseline">
                         <span class="material-symbols-outlined text-amber-500">group</span>
                         <span class="font-normal text-base ms-3">{{ $class->users()->count() }}/{{ $class->max_member }} People</span>
+                        <span class="material-symbols-outlined ms-10 text-amber-500">today</span>
+                        <span class="font-normal text-base ms-3">{{ $class->day }}, {{ $class->time }}</span>
                     </div>
                     <div class="overflow-y-auto mt-7 h-48">
                         <p class="">

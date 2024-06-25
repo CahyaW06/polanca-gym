@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ClassPaymentConfirmEmail;
 use App\Models\History;
 use App\Models\Setting;
+use App\Models\ClassHistory;
 use Illuminate\Http\Request;
 use App\Models\TrainingClass;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ClassPaymentConfirmEmail;
 use Illuminate\Support\Facades\Storage;
 
 class MemClass extends Controller
@@ -56,14 +57,13 @@ class MemClass extends Controller
         $proof = $request->file('proof');
         $proof->store('class_recipients');
 
-        $history = History::create([
+        $history = ClassHistory::create([
             'user_id' => Auth::user()->id,
-            'pay_for' => "class",
-            'membership_type' => 1,
+            'training_class_id' => $request->classId,
             'proof' => $proof->hashName(),
         ]);
 
-        Mail::to('yudhacahyawijaya@gmail.com')->send(new ClassPaymentConfirmEmail($history, Setting::all()->last(), TrainingClass::find($request->classId)));
+        Mail::to('yudhacahyawijaya@gmail.com')->send(new ClassPaymentConfirmEmail($history, Setting::all()->last()));
 
         TrainingClass::find($request->classId)->users()->attach([Auth::user()->id]);
 

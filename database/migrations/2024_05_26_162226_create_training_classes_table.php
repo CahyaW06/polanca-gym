@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('subs');
             $table->string('img')->nullable();
             $table->longText('desc')->nullable();
+            $table->string('day');
+            $table->time('time');
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
         });

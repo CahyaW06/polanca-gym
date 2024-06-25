@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Trainer;
 use Illuminate\Http\Request;
 use App\Models\TrainingClass;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class TrainingClassController extends Controller
@@ -70,7 +71,10 @@ class TrainingClassController extends Controller
             "max_member" => $validated["new_max_member"],
             "max_trainer" => $validated["new_max_trainer"],
             "subs" => $validated["new_subs"],
-            'img' => $classImg != "" ? $classImg->hashName() : "dummy_class.jpg"
+            'img' => $classImg != "" ? $classImg->hashName() : "dummy_class.jpg",
+            'desc' => $request->desc,
+            'day' => $request->dayRadio,
+            'time' => Carbon::createFromFormat('H:i', $request->time)->format('H:i')
         ]);
 
         return redirect('/adm-set-class');

@@ -21,6 +21,8 @@
                                         <div class="flex align-baseline">
                                             <span class="material-symbols-outlined text-amber-500">group</span>
                                             <span class="text-gray-700 font-normal ms-3">{{ $classes[$key-1]->users()->count() }}/{{ $classes[$key-1]->max_member }} People</span>
+                                            <span class="material-symbols-outlined ms-10 text-amber-500">today</span>
+                                            <span class="text-gray-700 font-normal ms-3">{{ $classes[$key-1]->day }}, {{ $classes[$key-1]->time }}</span>
                                         </div>
                                         @if(Auth::user()->trainingClasses->firstWhere('id', $classes[$key-1]->id) != null)
                                         <div class="w-full flex justify-center mt-8">
@@ -46,9 +48,11 @@
                                 </div>
                                 <div class="p-5">
                                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-amber-500">{{ $class->name }}</h5>
-                                    <div class="flex align-baseline">
+                                    <div class="flex align-middle">
                                         <span class="material-symbols-outlined text-amber-500">group</span>
                                         <span class="text-gray-700 font-normal ms-3">{{ $class->users()->count() }}/{{ $class->max_member }} People</span>
+                                        <span class="material-symbols-outlined ms-10 text-amber-500">today</span>
+                                        <span class="text-gray-700 font-normal ms-3">{{ $class->day }}, {{ $class->time }}</span>
                                     </div>
 
                                     @if($class->users()->count() >= $class->max_member)
@@ -85,6 +89,8 @@
                                         <div class="flex align-baseline">
                                             <span class="material-symbols-outlined text-amber-500">group</span>
                                             <span class="text-gray-700 font-normal ms-3">{{ $classes[$key+1]->users()->count() }}/{{ $classes[$key+1]->max_member }} People</span>
+                                            <span class="material-symbols-outlined ms-10 text-amber-500">today</span>
+                                            <span class="text-gray-700 font-normal ms-3">{{ $classes[$key+1]->day }}, {{ $classes[$key+1]->time }}</span>
                                         </div>
                                         @if(Auth::user()->trainingClasses->firstWhere('id', $classes[$key+1]->id) != null)
                                         <div class="w-full flex justify-center mt-8">

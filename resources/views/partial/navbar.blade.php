@@ -29,13 +29,10 @@
 
           @if(Auth::user() && Auth::user()->type == "admin")
           <li>
-            <a href="/adm-set-class" class="block py-2 px-4 text-white  hover:text-amber-500 {{ ($title == "Set Class") ? 'border-b-2 border-amber-500' : ''}}">Set Class</a>
+            <a href="/adm-set-class" class="block py-2 px-4 text-white  hover:text-amber-500 {{ ($title == "Class List") ? 'border-b-2 border-amber-500' : ''}}">Set Class</a>
           </li>
           <li>
-            <a href="/adm-member" class="block py-2 px-4 text-white hover:text-amber-500 {{ ($title == "Member/Trainer") ? 'border-b-2 border-amber-500' : ''}}">Member/Trainer</a>
-          </li>
-          <li>
-            <a href="#" class="block py-2 px-4 text-white hover:text-amber-500 {{ ($title == "Gym Income") ? 'border-b-2 border-amber-500' : ''}}">Gym Income</a>
+            <a href="/adm-member" class="block py-2 px-4 text-white hover:text-amber-500 {{ ($title == "Member List") ? 'border-b-2 border-amber-500' : ''}}">Member/Trainer</a>
           </li>
           <li>
             <a href="/inventory" class="block py-2 px-4 text-white  hover:text-amber-500 {{ ($title == "Gym Inventory") ? 'border-b-2 border-amber-500' : ''}}">Gym Inventory</a>

@@ -92,7 +92,9 @@ class DatabaseSeeder extends Seeder
             'max_trainer' => 3,
             'subs' => 200000,
             'img' => "dummy_class.jpg",
-            'desc' => 'Kelas yoga kami cocok untuk semua tingkatan, dipandu oleh instruktur berpengalaman. Fokus pada keseimbangan tubuh dan pikiran, meningkatkan fleksibilitas, kekuatan, dan kesehatan mental.'
+            'desc' => 'Kelas yoga kami cocok untuk semua tingkatan, dipandu oleh instruktur berpengalaman. Fokus pada keseimbangan tubuh dan pikiran, meningkatkan fleksibilitas, kekuatan, dan kesehatan mental.',
+            'day' => 'Monday',
+            'time' => Carbon::createFromFormat('H:i', '07:00')->format('H:i')
         ]);
 
         TrainingClass::create([
@@ -101,7 +103,9 @@ class DatabaseSeeder extends Seeder
             'max_trainer' => 5,
             'subs' => 100000,
             'img' => "dummy_class.jpg",
-            'desc' => "Kelas karate kami menawarkan pelatihan intensif untuk semua tingkat. Dipandu oleh instruktur berpengalaman, peserta belajar teknik dasar hingga lanjutan, serta pengembangan disiplin dan karakter"
+            'desc' => "Kelas karate kami menawarkan pelatihan intensif untuk semua tingkat. Dipandu oleh instruktur berpengalaman, peserta belajar teknik dasar hingga lanjutan, serta pengembangan disiplin dan karakter",
+            'day' => 'Tuesday',
+            'time' => Carbon::createFromFormat('H:i', '08:00')->format('H:i')
         ]);
 
         TrainingClass::find(1)->users()->attach([12, 13]);

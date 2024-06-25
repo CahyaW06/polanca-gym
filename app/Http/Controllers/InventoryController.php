@@ -20,7 +20,7 @@ class InventoryController extends Controller
     {
         // return Inventory::first()->trainingClass;
         return view('admin.inventory.index', [
-            "title" => "Class List",
+            "title" => "Gym Inventory",
             'lastSetting' => Setting::all()->last(),
             "classes" => TrainingClass::cursorPaginate(5),
             "total_class" => TrainingClass::count(),
