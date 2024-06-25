@@ -22,7 +22,7 @@
                     <button type="submit" class="hidden"></button>
                 </form>
             </div>
-            <button data-modal-target="store-modal" data-modal-toggle="store-modal" type="button" class="text-white bg-amber-500 hover:bg-amber-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 flex items-center text-center">Add Class</button>
+            <button data-modal-target="store-modal" data-modal-toggle="store-modal" type="button" class="text-white bg-amber-500 hover:bg-amber-600 font-medium rounded-lg text-sm px-4 flex items-center text-center">Add Class</button>
         </div>
         <table class="table w-full text-left rtl:text-right text-gray-400 mt-8">
             <thead class="text-sm uppercase text-amber-500 border-b-2 border-amber-500">
@@ -94,7 +94,7 @@
                         {{ Number::currency($class->subs, 'IDR') }}
                     </th>
                     <th scope="row" class="px-6 py-4 text-sm font-normal whitespace-nowrap text-white flex">
-                        <button data-modal-target="update-modal" data-modal-toggle="update-modal" type="button" class="bg-yellow-400 rounded py-2 px-3 text-white" @click="target_id = {{ $class->id }}; target_last_name = '{{ $class->name }}'; target_last_max_member = {{ $class->max_member }}; target_last_max_trainer = {{ $class->max_trainer }}; target_last_subs = {{ $class->subs }}">Edit</button>
+                        <button data-modal-target="update-modal" data-modal-toggle="update-modal" type="button" class="bg-amber-500 rounded py-2 px-3 text-white" @click="target_id = {{ $class->id }}; target_last_name = '{{ $class->name }}'; target_last_max_member = {{ $class->max_member }}; target_last_max_trainer = {{ $class->max_trainer }}; target_last_subs = {{ $class->subs }}">Edit</button>
                         <button data-modal-target="member-modal-{{ $class->id }}" data-modal-toggle="member-modal-{{ $class->id }}" class="bg-green-400 rounded py-2 px-3 ms-2 text-white">Member</button>
                         <button data-modal-target="trainer-modal-{{ $class->id }}" data-modal-toggle="trainer-modal-{{ $class->id }}" class="bg-green-400 rounded py-2 px-3 ms-2 text-white">Trainer</button>
                         <form action="/adm-set-class/{{ $class->id }}" method="POST">
@@ -121,20 +121,20 @@
                         @method('PUT')
                         <input type="text" name="type" value="member" class="hidden">
                         <!-- Modal header -->
-                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                                <h3 class="text-lg font-semibold text-white">
+                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-[#FFF9E1]">
+                                <h3 class="text-lg font-semibold text-amber-500">
                                     Select Member for this Class
                                 </h3>
-                                <button type="submit" class="bg-yellow-500 rounded py-2 px-3 ms-2 text-white">Update Member</button>
+                                <button type="button" class="bg-amber-500 rounded py-2 px-3 ms-2 text-white">Update Member</button>
                             </div>
                         <!-- Modal body -->
-                            <div class="relative overflow-x-auto overflow-y-auto max-h-96 shadow-md sm:rounded-lg">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <div class="relative overflow-x-auto overflow-y-auto max-h-96">
+                                <table class="w-full text-sm text-left rtl:text-right text-black">
+                                    <thead class="text-xs text-white uppercase bg-amber-500">
                                         <tr>
                                             <th scope="col" class="p-4">
                                                 <div class="flex items-center">
-                                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" @click="all_checked_member = ! all_checked_member, prev_checked_member = all_checked_member">
+                                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-amber-500 bg-gray-100 border-amber-500 rounded focus:ring-amber-500 focus:ring-2" @click="all_checked_member = ! all_checked_member, prev_checked_member = all_checked_member">
                                                     <label for="checkbox-all" class="sr-only">checkbox</label>
                                                 </div>
                                             </th>
@@ -157,10 +157,10 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($class->users()->get() as $key=>$member)
-                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <tr class="border-b hover:bg-gray-50 bg-[#FFF9E1]">
                                             <td class="w-4 p-4">
                                                 <div class="flex items-center">
-                                                    <input :checked="prev_checked_member" id="checkbox-table-1" type="checkbox" name="prev_member_id[{{ $key }}]" value="{{ $member->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input :checked="prev_checked_member" id="checkbox-table-1" type="checkbox" name="prev_member_id[{{ $key }}]" value="{{ $member->id }}" class="w-4 h-4 text-amber-500 bg-gray-100 border-amber-500 rounded focus:ring-amber-500 focus:ring-2">
                                                     <label for="checkbox-table-1" class="sr-only">checkbox</label>
                                                 </div>
                                             </td>
@@ -184,10 +184,10 @@
 
                                         @foreach ($all_active_member as $key=>$member)
                                         @if (!$member->trainingClasses->contains($class->id))
-                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <tr class="border-b hover:bg-gray-50 bg-[#FFF9E1]">
                                             <td class="w-4 p-4">
                                                 <div class="flex items-center">
-                                                    <input :checked="all_checked_member" id="checkbox-table-1" type="checkbox" name="new_member_id[{{ $key }}]" value="{{ $member->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input :checked="all_checked_member" id="checkbox-table-1" type="checkbox" name="new_member_id[{{ $key }}]" value="{{ $member->id }}" class="w-4 h-4 text-amber-500 bg-gray-100 border-amber-500 rounded focus:ring-amber-500 focus:ring-2">
                                                     <label for="checkbox-table-1" class="sr-only">checkbox</label>
                                                 </div>
                                             </td>
@@ -227,20 +227,20 @@
                             @method('PUT')
                             <input type="text" name="type" value="trainer" class="hidden">
                             <!-- Modal header -->
-                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
-                                <h3 class="text-lg font-semibold text-white">
+                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-[#FFF9E1]">
+                                <h3 class="text-lg font-semibold text-amber-500">
                                     Select Trainer for this Class
                                 </h3>
-                                <button type="submit" class="bg-yellow-500 rounded py-2 px-3 ms-2 text-white">Update Trainer</button>
+                                <button type="submit" class="bg-amber-500 rounded py-2 px-3 ms-2 text-white">Update Trainer</button>
                             </div>
                             <!-- Modal body -->
-                            <div class="relative overflow-x-auto overflow-y-auto max-h-96 shadow-md sm:rounded-lg">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <div class="relative overflow-x-auto overflow-y-auto max-h-96">
+                                <table class="w-full text-sm text-left rtl:text-right text-black">
+                                    <thead class="text-xs text-white uppercase bg-amber-500">
                                         <tr>
                                             <th scope="col" class="p-4">
                                                 <div class="flex items-center">
-                                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" @click="all_checked_trainer = ! all_checked_trainer, prev_checked_trainer = all_checked_trainer">
+                                                    <input id="checkbox-all" type="checkbox" class="w-4 h-4 text-amber-500 bg-gray-100 border-amber-500 rounded focus:ring-amber-500 focus:ring-2" @click="all_checked_trainer = ! all_checked_trainer, prev_checked_trainer = all_checked_trainer">
                                                     <label for="checkbox-all" class="sr-only">checkbox</label>
                                                 </div>
                                             </th>
@@ -263,10 +263,10 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($class->trainers()->get() as $key=>$trainer)
-                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <tr class="border-b hover:bg-gray-50 bg-[#FFF9E1]">
                                             <td class="w-4 p-4">
                                                 <div class="flex items-center">
-                                                    <input :checked="prev_checked_trainer" id="checkbox-table-1" type="checkbox" name="prev_trainer_id[{{ $key }}]" value="{{ $trainer->user()->first()->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input :checked="prev_checked_trainer" id="checkbox-table-1" type="checkbox" name="prev_trainer_id[{{ $key }}]" value="{{ $trainer->user()->first()->id }}" class="w-4 h-4 text-amber-500 bg-gray-100 border-amber-500 rounded focus:ring-amber-500 focus:ring-2">
                                                     <label for="checkbox-table-1" class="sr-only">checkbox</label>
                                                 </div>
                                             </td>
@@ -290,10 +290,10 @@
 
                                         @foreach ($all_trainer as $key=>$trainer)
                                         @if (!$trainer->trainingClasses->contains($class->id))
-                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <tr class="border-b hover:bg-gray-50 bg-[#FFF9E1]">
                                             <td class="w-4 p-4">
                                                 <div class="flex items-center">
-                                                    <input :checked="all_checked_trainer" id="checkbox-table-1" type="checkbox" name="new_trainer_id[{{ $key }}]" value="{{ $trainer->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <input :checked="all_checked_trainer" id="checkbox-table-1" type="checkbox" name="new_trainer_id[{{ $key }}]" value="{{ $trainer->id }}" class="w-4 h-4 text-amber-500 bg-gray-100 border-amber-500 rounded focus:ring-amber-500 focus:ring-2">
                                                     <label for="checkbox-table-1" class="sr-only">checkbox</label>
                                                 </div>
                                             </td>
@@ -325,7 +325,7 @@
         @endforeach
 
         <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-            <span class="text-sm font-normal text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-white">1 - {{ $classes->count() }}</span> of <span class="font-semibold text-white">{{ $total_class }}</span></span>
+            <span class="text-sm font-normal text-white mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-white">1 - {{ $classes->count() }}</span> of <span class="font-semibold text-white">{{ $total_class }}</span></span>
             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                 {{ $classes->links() }}
             </ul>
@@ -336,37 +336,47 @@
     <div id="update-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Modal content -->
-            <div class="relative rounded-lg shadow bg-gray-800">
+            <div class="relative rounded-lg bg-amber-500">
                 <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b-2 rounded-t bg-amber-500 border-white">
                     <h3 class="text-lg font-semibold text-white">
                         Set Class Properties
                     </h3>
                 </div>
                 <!-- Modal body -->
-                <form action="/adm-set-class/update" method="POST" class="my-5 grid px-8 py-4 justify-items-start">
+                <form action="/adm-set-class/update" method="POST" enctype="multipart/form-data" class="py-10 grid px-8 justify-items-start bg-[#FFF9E1]">
                 @csrf
                     <input type="number" name="target_id" x-model="target_id" class="hidden">
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" name="new_class_name" id="new_class_name" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_class_name') is-invalid @enderror" placeholder=" " x-model="target_last_name" required />
-                        <label for="new_class_name" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Class Name</label>
+                        <input type="text" name="new_class_name" id="new_class_name" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_class_name') is-invalid @enderror" placeholder=" " x-model="target_last_name" required />
+                        <label for="new_class_name" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Class Name</label>
                     </div>
                     <div class="mt-3 flex gap-5 w-full">
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="number" name="new_max_member" id="new_max_member" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_max_member') is-invalid @enderror" placeholder=" " x-model="target_last_max_member" required />
-                            <label for="new_max_member" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Member</label>
+                            <input type="number" name="new_max_member" id="new_max_member" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_max_member') is-invalid @enderror" placeholder=" " x-model="target_last_max_member" required />
+                            <label for="new_max_member" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Member</label>
                         </div>
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="number" name="new_max_trainer" id="new_max_trainer" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_max_trainer') is-invalid @enderror" placeholder=" " x-model="target_last_max_trainer" required />
-                            <label for="new_max_trainer" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Trainer</label>
+                            <input type="number" name="new_max_trainer" id="new_max_trainer" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_max_trainer') is-invalid @enderror" placeholder=" " x-model="target_last_max_trainer" required />
+                            <label for="new_max_trainer" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Trainer</label>
                         </div>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="number" name="new_subs" id="new_subs" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_subs') is-invalid @enderror" placeholder=" " x-model="target_last_subs" required />
-                        <label for="new_subs" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Subscription</label>
+                        <input type="number" name="new_subs" id="new_subs" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_subs') is-invalid @enderror" placeholder=" " x-model="target_last_subs" required />
+                        <label for="new_subs" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Subscription</label>
                     </div>
+                    <div class="relative z-0 w-full mb-5 group mt-3">
+                        <label class="block mb-3 text-xs font-medium text-black" for="classImg">Class Image</label>
+                        <input class="block w-full text-xs border rounded-lg cursor-pointer text-black focus:outline-none bg-white border-amber-500 placeholder-gray-400 @error('classImg') is-invalid @enderror" aria-describedby="classImg_help" id="classImg" name="classImg" type="file" required>
+                        <p class="mt-1 text-xs text-black" id="classImg_help">Format file: .jpg, .jpeg</p>
+                    </div>
+                    @error('classImg')
+                      <div class="alert-danger mb-5 -mt-3 text-red-400 text-xs">
+                          {{ $message }}
+                      </div>
+                    @enderror
 
-                    <button type="submit" class="bg-yellow-400 rounded py-2 px-3 my-5 mx-auto text-white">Update</button>
+                    <button type="submit" class="bg-amber-500 rounded py-2 px-3 my-5 mx-auto text-white">Update</button>
                 </form>
             </div>
         </div>
@@ -376,36 +386,46 @@
     <div id="store-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
             <!-- Modal content -->
-            <div class="relative rounded-lg shadow bg-gray-800">
+            <div class="relative rounded-lg shadow">
                 <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-600">
+                <div class="flex items-center justify-between p-4 md:p-5 border-b-2 rounded-t bg-amber-500 border-white">
                     <h3 class="text-lg font-semibold text-white">
                         Create New Class
                     </h3>
                 </div>
                 <!-- Modal body -->
-                <form action="/adm-set-class" method="POST" class="my-5 grid px-8 justify-items-start items-center">
-                @csrf
+                <form action="/adm-set-class" method="POST" enctype="multipart/form-data" class="py-5 grid px-8 justify-items-start items-center bg-[#FFF9E1]">
+                    @csrf
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="text" name="new_class_name" id="new_class_name" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_class_name') is-invalid @enderror" placeholder=" " required />
-                        <label for="new_class_name" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Class Name</label>
+                        <input type="text" name="new_class_name" id="new_class_name" class="block py-2.5 px-0 w-full text-sm bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_class_name') is-invalid @enderror" placeholder=" " required />
+                        <label for="new_class_name" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Class Name</label>
                     </div>
                     <div class="mt-3 flex gap-5 w-full">
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="number" name="new_max_member" id="new_max_member" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_max_member') is-invalid @enderror" placeholder=" " required />
-                            <label for="new_max_member" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Member</label>
+                            <input type="number" name="new_max_member" id="new_max_member" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_max_member') is-invalid @enderror" placeholder=" " required />
+                            <label for="new_max_member" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Member</label>
                         </div>
                         <div class="relative z-0 w-full mb-5 group">
-                            <input type="number" name="new_max_trainer" id="new_max_trainer" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_max_trainer') is-invalid @enderror" placeholder=" " required />
-                            <label for="new_max_trainer" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Trainer</label>
+                            <input type="number" name="new_max_trainer" id="new_max_trainer" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_max_trainer') is-invalid @enderror" placeholder=" " required />
+                            <label for="new_max_trainer" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Max Trainer</label>
                         </div>
                     </div>
                     <div class="relative z-0 w-full mb-5 group">
-                        <input type="number" name="new_subs" id="new_subs" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-white border-gray-600 focus:border-blue-500 focus:outline-none focus:ring-0 peer @error('new_subs') is-invalid @enderror" placeholder=" " required />
-                        <label for="new_subs" class="peer-focus:font-medium absolute text-sm text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Subscription</label>
+                        <input type="number" name="new_subs" id="new_subs" class="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 appearance-none text-black border-amber-500 focus:border-amber-500 focus:outline-none focus:ring-0 peer @error('new_subs') is-invalid @enderror" placeholder=" " required />
+                        <label for="new_subs" class="peer-focus:font-medium absolute text-sm text-black duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Subscription</label>
                     </div>
+                    <div class="relative z-0 w-full mb-5 group mt-3">
+                        <label class="block mb-3 text-xs font-medium text-black" for="classImg">Class Image</label>
+                        <input class="block w-full text-xs border rounded-lg cursor-pointer text-black focus:outline-none bg-white border-amber-500 placeholder-gray-400 @error('classImg') is-invalid @enderror" aria-describedby="classImg_help" id="classImg" name="classImg" type="file">
+                        <p class="mt-1 text-xs text-black" id="classImg_help">Format file: .jpg, .jpeg</p>
+                    </div>
+                    @error('classImg')
+                      <div class="alert-danger mb-5 -mt-3 text-red-400 text-xs">
+                          {{ $message }}
+                      </div>
+                    @enderror
 
-                    <button type="submit" class="bg-green-500 rounded py-2 px-3 my-5 mx-auto text-white">Create</button>
+                    <button type="submit" class="bg-amber-500 rounded py-2 px-3 my-5 mx-auto text-white">Create</button>
                 </form>
             </div>
         </div>

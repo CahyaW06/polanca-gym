@@ -1,34 +1,109 @@
 @extends('index')
 
 @section('main-body')
-    <div class="flex w-full mt-32">
+    <div class="flex w-full pt-40">
         <div class="w-full" x-data="{ selected: false }">
             <div id="class-carousel" class="relative w-full" :data-carousel="selected ? 'static' : 'slide'" data-carousel-interval=7000>
                 <!-- Carousel wrapper -->
-                <div class="relative overflow-hidden rounded-lg h-[calc(100vh-150px)] w-full mx-auto">
+                <div class="relative overflow-hidden rounded-lg h-[calc(100vh-200px)] w-full mx-auto">
 
                     @foreach ($classes as $key=>$class)
-                    <div class="hidden duration-500 ease-in-out" data-carousel-item data-name="{{ $class->name }}" data-desc="{{ $class->desc }}">
-                        @if ($key < $classes->count() - 1)
-                            @if ($classes[$key+1]->exists())
-                            <div class="object-scale-down absolute block translate-x-[175px] -translate-y-1/2 top-1/2 left-1/2">
-                                <img src="{{ url('storage/class/'.$classes[$key+1]->img) }}" class="rounded-lg grayscale">
-                                <h1 class="absolute block bottom-1/4 left-0 text-4xl -rotate-90 font-bold grayscale">{{ $classes[$key+1]->name }}</h1>
-                            </div>
+                    <div class="hidden duration-500 ease-in-out" data-carousel-item>
+                        <div class="flex justify-center gap-5">
+                            @if ($key > 0)
+                                @if ($classes[$key-1]->exists())
+                                <div class="relative max-w-sm bg-white border border-amber-500 rounded-lg shadow h-[30rem] grayscale">
+                                    <div class="overflow-hidden max-h-[18rem]">
+                                        <img src="{{ url('storage/class/'.$classes[$key-1]->img) }}" class="rounded-t-lg object-cover">
+                                    </div>
+                                    <div class="p-5">
+                                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-amber-500">{{ $classes[$key-1]->name }}</h5>
+                                        <div class="flex align-baseline">
+                                            <span class="material-symbols-outlined text-amber-500">group</span>
+                                            <span class="text-gray-700 font-normal ms-3">{{ $classes[$key-1]->users()->count() }}/{{ $classes[$key-1]->max_member }} People</span>
+                                        </div>
+                                        @if(Auth::user()->trainingClasses->firstWhere('id', $classes[$key-1]->id) != null)
+                                        <div class="w-full flex justify-center mt-8">
+                                            <button type="button" class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-amber-500 hover:bg-amber-600" disabled>
+                                                Already Join This Class
+                                            </button>
+                                        </div>
+                                        @else
+                                        <div class="w-full flex justify-center mt-8">
+                                            <button class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-amber-500 hover:bg-amber-600" disabled>
+                                                Select this Class
+                                            </button>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                @endif
                             @endif
-                        @endif
-                        @if ($key > 0)
-                            @if ($classes[$key-1]->exists())
-                            <div class="object-scale-down absolute block -translate-x-[475px] -translate-y-1/2 top-1/2 left-1/2">
-                                <img src="{{ url('storage/class/'.$classes[$key-1]->img) }}" class="rounded-lg grayscale">
-                                <h1 class="absolute block bottom-1/4 left-0 text-4xl -rotate-90 font-bold grayscale">{{ $classes[$key-1]->name }}</h1>
+
+                            <div class="relative max-w-sm bg-white border border-amber-500 rounded-lg shadow h-[30rem]">
+                                <div class="overflow-hidden max-h-[18rem]">
+                                    <img src="{{ url('storage/class/'.$class->img) }}" class="rounded-t-lg object-cover">
+                                </div>
+                                <div class="p-5">
+                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-amber-500">{{ $class->name }}</h5>
+                                    <div class="flex align-baseline">
+                                        <span class="material-symbols-outlined text-amber-500">group</span>
+                                        <span class="text-gray-700 font-normal ms-3">{{ $class->users()->count() }}/{{ $class->max_member }} People</span>
+                                    </div>
+
+                                    @if($class->users()->count() >= $class->max_member)
+                                    <div class="w-full flex justify-center mt-8">
+                                        <button type="button" class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-amber-500 hover:bg-amber-600" disabled>
+                                            Select this Class
+                                        </button>
+                                    </div>
+                                    @elseif(Auth::user()->trainingClasses->firstWhere('id', $class->id) != null)
+                                    <div class="w-full flex justify-center mt-8">
+                                        <button type="button" class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-amber-500 hover:bg-amber-600" disabled>
+                                            Already Join This Class
+                                        </button>
+                                    </div>
+                                    @else
+                                    <div class="w-full flex justify-center mt-8">
+                                        <a type="button" href="/join-class/{{ $class->id }}" class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-amber-500 hover:bg-amber-600">
+                                            Select this Class
+                                        </a>
+                                    </div>
+                                    @endif
+                                </div>
+                                <input type="integer" value='{{ $class->id }}' class="hidden" name="classId">
                             </div>
+
+                            @if ($key < $classes->count() - 1)
+                                @if ($classes[$key+1]->exists())
+                                <div class="relative max-w-sm bg-white border border-amber-500 rounded-lg shadow h-[30rem] grayscale">
+                                    <div class="overflow-hidden max-h-[18rem]">
+                                        <img src="{{ url('storage/class/'.$classes[$key+1]->img) }}" class="rounded-t-lg object-cover">
+                                    </div>
+                                    <div class="p-5">
+                                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-amber-500">{{ $classes[$key+1]->name }}</h5>
+                                        <div class="flex align-baseline">
+                                            <span class="material-symbols-outlined text-amber-500">group</span>
+                                            <span class="text-gray-700 font-normal ms-3">{{ $classes[$key+1]->users()->count() }}/{{ $classes[$key+1]->max_member }} People</span>
+                                        </div>
+                                        @if(Auth::user()->trainingClasses->firstWhere('id', $classes[$key+1]->id) != null)
+                                        <div class="w-full flex justify-center mt-8">
+                                            <button type="button" class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-amber-500 hover:bg-amber-600" disabled>
+                                                Already Join This Class
+                                            </button>
+                                        </div>
+                                        @else
+                                        <div class="w-full flex justify-center mt-8">
+                                            <button class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-amber-500 hover:bg-amber-600" disabled>
+                                                Select this Class
+                                            </button>
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                @endif
                             @endif
-                        @endif
-                        <button type="button" class="object-scale-down absolute block -translate-x-1/2 -translate-y-2/3 top-1/2 left-1/2 focus:outline-4 focus:outline focus:outline-amber-500" @click="selected = ! selected" onclick="return tes()">
-                            <img src="{{ url('storage/class/'.$class->img) }}" class="rounded-lg">
-                            <h1 class="absolute block bottom-1/4 left-0 text-4xl text-amber-500 -rotate-90 font-bold">{{ $class->name }}</h1>
-                        </button>
+                        </div>
                     </div>
                     @endforeach
 
@@ -64,25 +139,8 @@
                 </button>
             </div>
         </div>
-
-        {{-- <div class="w-1/2 ms-5 me-10 text-center my-auto">
-            <div class="block p-6 border rounded-lg shadow bg-gray-800 border-gray-700">
-                <h5 id="classTitle" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-                <p id="classDesc" class="font-normal text-gray-700 dark:text-gray-400 text-left">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-            </div>
-        </div> --}}
     </div>
 @endsection
 
 @push('scripts')
-{{-- <script>
-    function tes() {
-        let carousel = FlowbiteInstances.getInstance('Carousel', 'class-carousel');
-
-        let classTitle = document.getElementById('classTitle');
-        classTitle.innerHTML = carousel._activeItem.el.dataset.name;
-        let classDesc = document.getElementById('classDesc');
-        classDesc.innerHTML = carousel._activeItem.el.dataset.desc;
-    }
-</script> --}}
 @endpush

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Trainer;
 use Illuminate\Http\Request;
 use App\Models\TrainingClass;
+use Illuminate\Support\Facades\Storage;
 
 class TrainingClassController extends Controller
 {
@@ -53,14 +54,23 @@ class TrainingClassController extends Controller
             'new_class_name' => 'required|string',
             'new_max_member' => 'required|numeric',
             'new_max_trainer' => 'required|numeric',
-            'new_subs' => 'required|numeric'
+            'new_subs' => 'required|numeric',
+            'classImg' => 'mimetypes:image/jpeg',
         ]);
+
+        // dd($request);
+        $classImg = "";
+        if($request->file('classImg')) {
+            $classImg = $request->file('classImg');
+            $classImg->store('public/class');
+        }
 
         TrainingClass::create([
             "name" => $validated["new_class_name"],
             "max_member" => $validated["new_max_member"],
             "max_trainer" => $validated["new_max_trainer"],
-            "subs" => $validated["new_subs"]
+            "subs" => $validated["new_subs"],
+            'img' => $classImg != "" ? $classImg->hashName() : "dummy_class.jpg"
         ]);
 
         return redirect('/adm-set-class');
@@ -148,6 +158,13 @@ class TrainingClassController extends Controller
             $class->max_member = $request->new_max_member;
             $class->max_trainer = $request->new_max_trainer;
             $class->subs = $request->new_subs;
+            if($request->classImg) {
+                Storage::delete('public/class/'.$class->img);
+                $classImg = $request->file('classImg');
+                $classImg->store('public/class');
+
+                $class->img = $classImg->hashName();
+            }
             $class->save();
         }
 

@@ -49,6 +49,7 @@ Route::resource('/gym-settings', AdmSettingController::class)->middleware(AdminM
 
 // Member --> join class
 Route::resource('/join-class', MemClass::class)->middleware(MemberMiddleware::class);
+Route::get('/join-class/payment', [MemClass::class, 'classPayment'])->middleware(MemberMiddleware::class);
 
 // Member --> membership
 Route::get('/membership', [MemMembership::class, 'index'])->middleware(MemberMiddleware::class);

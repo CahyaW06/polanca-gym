@@ -47,7 +47,7 @@
         @enderror
         <div class="flex items-start mb-5">
           <div class="flex items-center h-5">
-            <input id="trainerValidation" name="trainerValidation" type="checkbox" value="1" class="w-4 h-4 rounded bg-gray-50 focus:outline-none" />
+            <input id="trainerValidation" name="trainerValidation" type="checkbox" value="1" class="w-4 h-4 rounded bg-gray-50 focus:outline-none text-amber-500 border border-amber-500" />
           </div>
           <label for="trainerValidation" class="ms-2 text-sm font-medium text-white hover:text-gray-200">I'm a Trainer</label>
         </div>

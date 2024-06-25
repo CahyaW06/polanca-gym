@@ -89,7 +89,7 @@ class DatabaseSeeder extends Seeder
             'max_member' => 20,
             'max_trainer' => 3,
             'subs' => 200000,
-            'img' => "dummy_class.png",
+            'img' => "dummy_class.jpg",
             'desc' => 'Kelas yoga kami cocok untuk semua tingkatan, dipandu oleh instruktur berpengalaman. Fokus pada keseimbangan tubuh dan pikiran, meningkatkan fleksibilitas, kekuatan, dan kesehatan mental.'
         ]);
 
@@ -98,7 +98,7 @@ class DatabaseSeeder extends Seeder
             'max_member' => 10,
             'max_trainer' => 5,
             'subs' => 100000,
-            'img' => "dummy_class.png",
+            'img' => "dummy_class.jpg",
             'desc' => "Kelas karate kami menawarkan pelatihan intensif untuk semua tingkat. Dipandu oleh instruktur berpengalaman, peserta belajar teknik dasar hingga lanjutan, serta pengembangan disiplin dan karakter"
         ]);
 

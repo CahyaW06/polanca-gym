@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('max_trainer');
             $table->integer('subs');
             $table->string('img')->nullable();
-            $table->longText('desc');
+            $table->longText('desc')->nullable();
             $table->timestamp('updated_at');
             $table->timestamp('created_at');
         });
