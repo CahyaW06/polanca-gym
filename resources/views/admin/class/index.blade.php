@@ -325,7 +325,7 @@
         @endforeach
 
         <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-            <span class="text-sm font-normal text-white mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-white">1 - {{ $classes->count() }}</span> of <span class="font-semibold text-white">{{ $total_class }}</span></span>
+            <span class="text-sm font-normal text-white mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing <span class="font-semibold text-white">@if($members->count() > 0) 1 @else 0 @endif - {{ $members->count() }}</span> of <span class="font-semibold text-white">{{ $total_class }}</span></span>
             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                 {{ $classes->links() }}
             </ul>

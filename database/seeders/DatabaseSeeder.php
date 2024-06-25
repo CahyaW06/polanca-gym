@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 10; $i++) {
-            if ($i <= 5) {
+        for ($i = 1; $i <= 5; $i++) {
+            if ($i <= 2) {
                 User::create([
                     'first_name' => fake()->firstName(),
                     'last_name' => fake()->lastName(),
@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
                     'type' => 'trainer',
                     'password' => Hash::make('password123'),
                     'activated' => 1,
+                    'update_membership_at' => Carbon::now()
                 ]);
             }
             else {
@@ -38,6 +39,7 @@ class DatabaseSeeder extends Seeder
                     'type' => 'trainer',
                     'password' => Hash::make('password123'),
                     'activated' => 0,
+                    'update_membership_at' => Carbon::now()
                 ]);
             }
 
@@ -82,7 +84,7 @@ class DatabaseSeeder extends Seeder
             'membership_end_at' => Carbon::parse("2024-05-25")
         ]);
 
-        User::factory()->count(25)->create();
+        User::factory()->count(5)->create();
 
         TrainingClass::create([
             'name' => 'Yoga Class',
