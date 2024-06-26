@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -29,8 +30,11 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'type' => "member",
-            'activated' => rand(0, 1),
-            'password' => static::$password ??= Hash::make('password'),
+            'activated' => 1,
+            'password' => static::$password ??= Hash::make('password123'),
+            'membership_duration' => 5,
+            'update_membership_at' => Carbon::now()->toDate(),
+            'membership_end_at' => Carbon::now()->addMonth(3),
             'remember_token' => Str::random(10),
         ];
     }

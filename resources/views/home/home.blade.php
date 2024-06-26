@@ -24,13 +24,13 @@
         </a>
 
         @elseif (Auth::user()->type == "admin")
-        <div id="gymIncome" class="fixed top-48 right-36 max-w-sm w-full bg-dark rounded-lg shadow p-6 border border-amber-500" data-income="{{ $history }}">
-            <div class="flex justify-between">
+        <div id="gymIncome" class="fixed top-48 right-36 max-w-sm w-full bg-dark rounded-lg shadow p-6 border border-amber-500" data-daily-member-income="{{ $dailyMemIncome }}">
+            <div class="flex justify-between mb-5">
               <div>
-                <h5 class="font-extrabold tracking-tight leading-none text-amber-500 text-2xl">Gym Income</h5>
+                <h5 class="font-extrabold tracking-tight leading-none text-white text-2xl">Gym Income</h5>
               </div>
             </div>
-            <div id="area-chart"></div>
+            <div id="line-chart"></div>
             <div class="grid grid-cols-1 items-center border-gray-200 border-t justify-between">
               <div class="flex justify-between items-center pt-5">
                 <!-- Button -->
@@ -66,15 +66,14 @@
 
           @push('scripts')
           <script>
-            // let income = document.getElementById('gymIncome');
-            // let info = JSON.parse(income.dataset.income);
-            // console.log(info);
+            let gymIncome = document.getElementById('gymIncome');
+            let dailyMemIncome = JSON.parse(gymIncome.dataset.dailyMemberIncome);
 
             const options = {
               chart: {
                 height: "100%",
                 maxWidth: "100%",
-                type: "area",
+                type: "line",
                 fontFamily: "Inter, sans-serif",
                 dropShadow: {
                   enabled: false,
@@ -89,15 +88,6 @@
                   show: false,
                 },
               },
-              fill: {
-                type: "gradient",
-                gradient: {
-                  opacityFrom: 0.7,
-                  opacityTo: 0,
-                  shade: "#FFD54B",
-                  gradientToColors: ["#FFD54B"],
-                },
-              },
               dataLabels: {
                 enabled: false,
               },
@@ -110,21 +100,35 @@
                 padding: {
                   left: 2,
                   right: 2,
-                  top: 0
+                  top: -26
                 },
               },
               series: [
                 {
-                  name: "Gym Income",
-                  data: [6500, 6418, 6456, 6526, 6356, 6456],
-                  color: "#FFD54B",
+                  name: "Membership",
+                  data: dailyMemIncome,
+                  color: "#fcd34d",
+                },
+                {
+                  name: "Class",
+                  data: [6456, 6356, 6526, 6332, 6418, 6500],
+                  color: "#f59e0b",
                 },
               ],
+              legend: {
+                show: false
+              },
+              stroke: {
+                curve: 'smooth'
+              },
               xaxis: {
-                // categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
-                // categories:
+                categories: ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb', '07 Feb'],
                 labels: {
                   show: false,
+                  style: {
+                    fontFamily: "Inter, sans-serif",
+                    cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+                  }
                 },
                 axisBorder: {
                   show: false,
@@ -136,12 +140,12 @@
               yaxis: {
                 show: false,
               },
-          }
+            }
 
-          if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
-            const chart = new ApexCharts(document.getElementById("area-chart"), options);
-            chart.render();
-          }
+            if (document.getElementById("line-chart") && typeof ApexCharts !== 'undefined') {
+              const chart = new ApexCharts(document.getElementById("line-chart"), options);
+              chart.render();
+            }
 
           </script>
           @endpush

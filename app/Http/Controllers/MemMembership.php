@@ -39,7 +39,6 @@ class MemMembership extends Controller
 
         $history = History::create([
             'user_id' => Auth::user()->id,
-            'pay_for' => "membership",
             'membership_type' => $request->membership_type,
             'proof' => $proof->hashName(),
         ]);

@@ -79,7 +79,6 @@ class PaymentConfirmEmail extends Mailable
             view: 'emails.sendPayment',
             with: [
                 'user' => $this->history->user,
-                'pay_for' => $this->history->pay_for,
                 'membership_type' => $this->history->membership_type,
                 'lastSetting' => $this->lastSetting,
             ]

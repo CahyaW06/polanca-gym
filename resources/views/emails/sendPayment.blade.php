@@ -2,7 +2,7 @@
     <span>Pembayaran Membership GYM</span><br>
     <span>User ID: {{ $user->id }}</span><br>
     <span>Nama: {{ $user->first_name }} {{ $user->last_name }}</span><br>
-    <span>Jenis: @if($pay_for == "membership") Membership Payment @endif
+    <span>Jenis: Membership Payment
         @if($pay_for == "membership" && $membership_type == 1)
             1 Bulan ({{ Number::currency($lastSetting->payment_one_month, 'IDR') }})
         @elseif($pay_for == "membership" && $membership_type == 2)

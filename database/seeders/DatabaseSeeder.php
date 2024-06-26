@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\ClassHistory;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Trainer;
 use App\Models\Inventory;
 use App\Models\ClassMember;
+use App\Models\History;
 use App\Models\Setting;
 use App\Models\TrainingClass;
 use Illuminate\Database\Seeder;
@@ -29,7 +31,39 @@ class DatabaseSeeder extends Seeder
             'update_membership_at' => Carbon::now()
         ]);
 
-        for ($i = 1; $i <= 5; $i++) {
+        User::create([
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'type' => 'admin',
+            'password' => Hash::make('admin'),
+        ]);
+
+        User::create([
+            'first_name' => 'Surojo',
+            'last_name' => 'Di Ningrat',
+            'email' => 'user@gmail.com',
+            'type' => 'member',
+            'password' => Hash::make('user'),
+            'activated' => 1,
+            'membership_duration' => 5,
+            'update_membership_at' => Carbon::now()->toDate(),
+            'membership_end_at' => Carbon::now()->addMonth(5)
+        ]);
+
+        User::create([
+            'first_name' => 'Syahlan',
+            'last_name' => 'Wigunatmo',
+            'email' => 'syahlan@gmail.com',
+            'type' => 'member',
+            'password' => Hash::make('syahlanwigunatmo'),
+            'activated' => 1,
+            'membership_duration' => 5,
+            'update_membership_at' => Carbon::now()->toDate(),
+            'membership_end_at' => Carbon::now()->addMonth(5)
+        ]);
+
+        for ($i = 1; $i <= 3; $i++) {
             if ($i <= 2) {
                 User::create([
                     'first_name' => fake()->firstName(),
@@ -61,38 +95,6 @@ class DatabaseSeeder extends Seeder
                 'certificates' => "cv2uZTM41oYpxYU6JPLvT9IXzzw3DNFQ4Xie0fpT.pdf,N6NXcTsgcEgtmgldFbeaDyoDvCC0CTISXWrda1CY.pdf"
             ]);
         }
-
-        User::create([
-            'first_name' => 'Admin',
-            'last_name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'type' => 'admin',
-            'password' => Hash::make('admin'),
-        ]);
-
-        User::create([
-            'first_name' => 'Surojo',
-            'last_name' => 'Di Ningrat',
-            'email' => 'user@gmail.com',
-            'type' => 'member',
-            'password' => Hash::make('user'),
-            'activated' => 1,
-            'membership_duration' => 4,
-            'update_membership_at' => Carbon::parse('2024-03-26'),
-            'membership_end_at' => Carbon::parse('2024-03-26')->addMonth(4)
-        ]);
-
-        User::create([
-            'first_name' => 'Syahlan',
-            'last_name' => 'Wigunatmo',
-            'email' => 'syahlan@gmail.com',
-            'type' => 'member',
-            'password' => Hash::make('syahlanwigunatmo'),
-            'activated' => 1,
-            'membership_duration' => 0,
-            'update_membership_at' => Carbon::now()->toDate(),
-            'membership_end_at' => Carbon::parse("2024-05-25")
-        ]);
 
         User::factory()->count(5)->create();
 
@@ -131,5 +133,21 @@ class DatabaseSeeder extends Seeder
             'payment_five_month' => 269999,
         ]);
 
+        $dummyMemberId = [3, 4, 8, 9, 10, 11, 12];
+        for ($i = 0; $i < 10; $i++) {
+            History::create([
+                'user_id' => $dummyMemberId[array_rand($dummyMemberId)],
+                'membership_type' => rand(1, 3),
+                'proof' => "membership_proof.jpg",
+                'update_date' => Carbon::today()->subDays(rand(0, 7))
+            ]);
+
+            ClassHistory::create([
+                'user_id' => $dummyMemberId[array_rand($dummyMemberId)],
+                'training_class_id' => rand(1, 2),
+                'proof' => "class_proof.jpg",
+                'created_at' => Carbon::today()->subDays(rand(0, 180))
+            ]);
+        }
     }
 }

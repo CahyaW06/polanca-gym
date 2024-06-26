@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignIdFor(User::class);
-            $table->string('pay_for');
+            $table->date('update_date');
             $table->integer('membership_type');
             $table->string('proof');
         });
