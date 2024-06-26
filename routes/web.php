@@ -12,8 +12,10 @@ use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\MemClass;
 use App\Http\Controllers\MemMembership;
 use App\Http\Controllers\MemSeeClass;
+use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\TrainingClassController;
 use App\Http\Middleware\MemberMiddleware;
+use App\Http\Middleware\TrainerMiddleware;
 
 Route::get('/', [Controller::class, 'home']);
 
@@ -59,3 +61,6 @@ Route::get('/payment-done', [MemMembership::class, 'paymentDone'])->middleware(M
 
 // Member --> see class
 Route::get('/my-class', [MemSeeClass::class, 'index'])->middleware(MemberMiddleware::class);
+
+//
+Route::get('/trainer/my-class', [TrainerController::class, 'index'])->middleware(TrainerMiddleware::class);

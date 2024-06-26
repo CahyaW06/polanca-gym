@@ -23,7 +23,7 @@
 
           @if(Auth::user() && Auth::user()->type == "trainer")
           <li>
-            <a href="#" class="block py-2 px-4 text-white hover:text-amber-500 {{ ($title == "My Class") ? 'border-b-2 border-amber-500' : ''}}">My Class</a>
+            <a href="/trainer/my-class" class="block py-2 px-4 text-white hover:text-amber-500 {{ ($title == "My Class") ? 'border-b-2 border-amber-500' : ''}}">My Class</a>
           </li>
           @endif
 

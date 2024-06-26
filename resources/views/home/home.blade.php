@@ -1,7 +1,7 @@
 @extends("index")
 
 @section('main-body')
-<section class="bg-center bg-cover bg-no-repeat bg-gray-500 bg-blend-multiply h-screen" style="background-image: url('storage/home_bg.png')" x-data="{ greeting: 'Hello' }">
+<section class="bg-center bg-cover bg-no-repeat bg-gray-500 bg-blend-multiply h-screen" style="background-image: url('/storage/home_bg.png')" x-data="{ greeting: 'Hello' }">
     <div class="px-4 max-w-screen-md py-24 lg:py-56">
         <h1 class="mt-8 mb-4 ps-48 font-extrabold tracking-tight leading-none text-white text-6xl">{{ $lastSetting->gym_name }}</h1>
         <p class="mb-16 font-normal text-gray-300 text-xl ps-48 pe-20">At {{ $lastSetting->gym_name }}, we believe in the power of transformation. Whether you're a seasoned athlete or just starting your fitness journey, our state-of-the-art facilities and expert trainers are here to help you achieve your goals.</p>

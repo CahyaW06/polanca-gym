@@ -19,6 +19,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::create([
+            'first_name' => "Syahlan",
+            'last_name' => "Wijaya",
+            'email' => "trainer@gmail.com",
+            'type' => 'trainer',
+            'password' => Hash::make('password123'),
+            'activated' => 1,
+            'update_membership_at' => Carbon::now()
+        ]);
+
         for ($i = 1; $i <= 5; $i++) {
             if ($i <= 2) {
                 User::create([
