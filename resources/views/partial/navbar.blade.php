@@ -14,7 +14,7 @@
             <a href="/join-class" class="block py-2 px-4 text-white hover:text-amber-500 {{ ($title == "Join Class") ? 'border-b-2 border-amber-500' : ''}}">Join Class</a>
           </li>
           <li>
-            <a href="#" class="block py-2 px-4 text-white hover:text-amber-500 {{ ($title == "My Class") ? 'border-b-2 border-amber-500' : ''}}">My Class</a>
+            <a href="/my-class" class="block py-2 px-4 text-white hover:text-amber-500 {{ ($title == "My Class") ? 'border-b-2 border-amber-500' : ''}}">My Class</a>
           </li>
           <li>
             <a href="/membership" class="block py-2 px-4 text-white hover:text-amber-500 {{ ($title == "Membership") ? 'border-b-2 border-amber-500' : ''}}">Membership</a>

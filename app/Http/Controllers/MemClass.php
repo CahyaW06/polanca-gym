@@ -65,9 +65,6 @@ class MemClass extends Controller
 
         Mail::to('yudhacahyawijaya@gmail.com')->send(new ClassPaymentConfirmEmail($history, Setting::all()->last()));
 
-        TrainingClass::find($request->classId)->users()->attach([Auth::user()->id]);
-
-
         return redirect('/payment-done');
     }
 

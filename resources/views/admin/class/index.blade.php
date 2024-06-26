@@ -141,7 +141,7 @@
                                 <h3 class="text-lg font-semibold text-amber-500">
                                     Select Member for this Class
                                 </h3>
-                                <button type="button" class="bg-amber-500 rounded py-2 px-3 ms-2 text-white">Update Member</button>
+                                <button type="submit" class="bg-amber-500 rounded py-2 px-3 ms-2 text-white">Update Member</button>
                             </div>
                         <!-- Modal body -->
                             <div class="relative overflow-x-auto overflow-y-auto max-h-96">

@@ -44,7 +44,6 @@ class MemMembership extends Controller
             'proof' => $proof->hashName(),
         ]);
 
-        // dd(Auth::user());
         Mail::to('yudhacahyawijaya@gmail.com')->send(new PaymentConfirmEmail($history, Setting::all()->last()));
 
         return redirect('/payment-done');

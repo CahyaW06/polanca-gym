@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\MemClass;
 use App\Http\Controllers\MemMembership;
+use App\Http\Controllers\MemSeeClass;
 use App\Http\Controllers\TrainingClassController;
 use App\Http\Middleware\MemberMiddleware;
 
@@ -55,3 +56,6 @@ Route::get('/join-class/payment', [MemClass::class, 'classPayment'])->middleware
 Route::get('/membership', [MemMembership::class, 'index'])->middleware(MemberMiddleware::class);
 Route::post('/payment', [MemMembership::class, 'payment'])->middleware(MemberMiddleware::class);
 Route::get('/payment-done', [MemMembership::class, 'paymentDone'])->middleware(MemberMiddleware::class);
+
+// Member --> see class
+Route::get('/my-class', [MemSeeClass::class, 'index'])->middleware(MemberMiddleware::class);
