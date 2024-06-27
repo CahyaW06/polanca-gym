@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PaymentConfirmEmail;
 use App\Models\History;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class MemMembership extends Controller
@@ -40,6 +41,7 @@ class MemMembership extends Controller
         $history = History::create([
             'user_id' => Auth::user()->id,
             'membership_type' => $request->membership_type,
+            'update_date' => Carbon::now()->toDateString(),
             'proof' => $proof->hashName(),
         ]);
 

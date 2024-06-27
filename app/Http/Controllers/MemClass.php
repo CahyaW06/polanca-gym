@@ -10,6 +10,7 @@ use App\Models\TrainingClass;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ClassPaymentConfirmEmail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class MemClass extends Controller
@@ -60,6 +61,7 @@ class MemClass extends Controller
         $history = ClassHistory::create([
             'user_id' => Auth::user()->id,
             'training_class_id' => $request->classId,
+            'update_date' => Carbon::now()->toDateString(),
             'proof' => $proof->hashName(),
         ]);
 
