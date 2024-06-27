@@ -129,16 +129,6 @@
                       </div>
                     @enderror
                     </div>
-                    <div class="relative z-0 w-full mb-5 group">
-                        <label class="block mb-3 text-xs font-medium text-gray-300" for="photo">Pass Photo</label>
-                        <input class="block w-full text-xs border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400 @error('photo') is-invalid @enderror" aria-describedby="photo_help" id="photo" name="photo" type="file" required>
-                        <p class="mt-1 text-xs text-gray-300" id="photo_help">Format file: .jpg, .jpeg</p>
-                    </div>
-                    @error('photo')
-                      <div class="alert-danger mb-5 -mt-3 text-red-400 text-xs">
-                          {{ $message }}
-                      </div>
-                    @enderror
                 </div>
 
                 <div class="w-1/2">

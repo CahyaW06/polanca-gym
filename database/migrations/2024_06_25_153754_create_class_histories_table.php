@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(TrainingClass::class);
+            $table->date('update_date');
             $table->string('proof');
         });
     }

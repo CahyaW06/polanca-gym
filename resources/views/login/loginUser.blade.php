@@ -29,7 +29,7 @@
       @csrf
         <div class="mb-5">
           <label for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
-          <input type="email" id="email" name="email" class="bg-gray-50 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 placeholder-gray-700 text-gray-700 @error('email') is-invalid @enderror" placeholder="name@gmail.com" required value="trainer@gmail.com" />
+          <input type="email" id="email" name="email" class="bg-gray-50 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5 placeholder-gray-700 text-gray-700 @error('email') is-invalid @enderror" placeholder="name@gmail.com" required value="user@gmail.com" />
         </div>
         @error('email')
           <div class="alert-danger mb-5 -mt-3 text-red-400 text-xs">
@@ -47,7 +47,7 @@
         @enderror
         <div class="flex items-start mb-5">
           <div class="flex items-center h-5">
-            <input checked id="trainerValidation" name="trainerValidation" type="checkbox" value="1" class="w-4 h-4 rounded bg-gray-50 focus:outline-none text-amber-500 border border-amber-500" />
+            <input id="trainerValidation" name="trainerValidation" type="checkbox" value="1" class="w-4 h-4 rounded bg-gray-50 focus:outline-none text-amber-500 border border-amber-500" />
           </div>
           <label for="trainerValidation" class="ms-2 text-sm font-medium text-white hover:text-gray-200">I'm a Trainer</label>
         </div>

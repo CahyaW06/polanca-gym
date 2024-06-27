@@ -44,11 +44,11 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Di Ningrat',
             'email' => 'user@gmail.com',
             'type' => 'member',
-            'password' => Hash::make('user'),
+            'password' => Hash::make('password123'),
             'activated' => 1,
-            'membership_duration' => 5,
+            'membership_duration' => 0,
             'update_membership_at' => Carbon::now()->toDate(),
-            'membership_end_at' => Carbon::now()->addMonth(5)
+            'membership_end_at' => Carbon::now()->subMonth()
         ]);
 
         User::create([
@@ -88,11 +88,10 @@ class DatabaseSeeder extends Seeder
             }
 
             Trainer::create([
-                'user_id' => $i,
-                'photo' => "img1.jpg",
-                'apply_letter' => "MtpD4r6n3Cian4TYKXXqWLhCfADPKHwUhxUFJyHL.pdf",
-                'cv' => '1UBTaHaU1k436Fchgphi9q30bF2tziLF4Jk8Tk5l.pdf',
-                'certificates' => "cv2uZTM41oYpxYU6JPLvT9IXzzw3DNFQ4Xie0fpT.pdf,N6NXcTsgcEgtmgldFbeaDyoDvCC0CTISXWrda1CY.pdf"
+                'user_id' => $i+5,
+                'apply_letter' => "application_letter.pdf",
+                'cv' => 'CV.pdf',
+                'certificates' => "Sertifikat.pdf"
             ]);
         }
 
@@ -104,7 +103,7 @@ class DatabaseSeeder extends Seeder
             'max_trainer' => 3,
             'subs' => 200000,
             'img' => "dummy_class.jpg",
-            'desc' => 'Kelas yoga kami cocok untuk semua tingkatan, dipandu oleh instruktur berpengalaman. Fokus pada keseimbangan tubuh dan pikiran, meningkatkan fleksibilitas, kekuatan, dan kesehatan mental.',
+            'desc' => 'Our yoga classes are suitable for all levels, led by experienced instructors. Focus on balancing body and mind, improving flexibility, strength and mental health.',
             'day' => 'Monday',
             'time' => Carbon::createFromFormat('H:i', '07:00')->format('H:i')
         ]);
@@ -115,7 +114,7 @@ class DatabaseSeeder extends Seeder
             'max_trainer' => 5,
             'subs' => 100000,
             'img' => "dummy_class.jpg",
-            'desc' => "Kelas karate kami menawarkan pelatihan intensif untuk semua tingkat. Dipandu oleh instruktur berpengalaman, peserta belajar teknik dasar hingga lanjutan, serta pengembangan disiplin dan karakter",
+            'desc' => "Our karate classes offer intensive training for all levels. Guided by experienced instructors, participants learn basic to advanced techniques, as well as discipline and character development.",
             'day' => 'Tuesday',
             'time' => Carbon::createFromFormat('H:i', '08:00')->format('H:i')
         ]);
@@ -127,26 +126,26 @@ class DatabaseSeeder extends Seeder
 
         Setting::create([
             'gym_name' => "Polanca GYM",
-            'gym_motto' => 'Unleash Your Inner Athlete',
+            'gym_motto' => 'Be A Sigma Mewing Man',
             'payment_one_month' => 69999,
             'payment_three_month' => 169999,
             'payment_five_month' => 269999,
         ]);
 
         $dummyMemberId = [3, 4, 8, 9, 10, 11, 12];
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             History::create([
                 'user_id' => $dummyMemberId[array_rand($dummyMemberId)],
                 'membership_type' => rand(1, 3),
-                'proof' => "membership_proof.jpg",
-                'update_date' => Carbon::today()->subDays(rand(0, 7))
+                'proof' => "bukti_pembayaran.jpg",
+                'update_date' => Carbon::today()->subDays(rand(0, 365))
             ]);
 
             ClassHistory::create([
                 'user_id' => $dummyMemberId[array_rand($dummyMemberId)],
                 'training_class_id' => rand(1, 2),
-                'proof' => "class_proof.jpg",
-                'created_at' => Carbon::today()->subDays(rand(0, 180))
+                'proof' => "bukti_pembayaran.jpg",
+                'update_date' => Carbon::today()->subDays(rand(0, 365))
             ]);
         }
     }
